@@ -12,7 +12,6 @@ import { TaskService } from './task/task.service';
 import { SprintService } from './sprint/sprint.service';
 import { UserController } from './user/user.controller';
 import { BoardController } from './board/board.controller';
-import { BoardcolumnController } from './boardcolumn/boardcolumn.controller';
 import { BoardColumnController } from './board-column/board-column.controller';
 import { ProjectController } from './project/project.controller';
 import { SprintController } from './sprint/sprint.controller';
@@ -22,7 +21,28 @@ import { TeamController } from './team/team.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, UserController, BoardController, BoardcolumnController, BoardColumnController, ProjectController, SprintController, TaskController, TaskStateController, TeamController],
-  providers: [AppService, PrismaService, UserService, TeamService, ProjectService, BoardService, BoardColumnService, TaskStateService, TaskService, SprintService],
+  controllers: [
+    AppController,
+    UserController,
+    BoardController,
+    BoardColumnController,
+    ProjectController,
+    SprintController,
+    TaskController,
+    TaskStateController,
+    TeamController
+  ],
+  providers: [
+    AppService,
+    PrismaService,
+    UserService,
+    TeamService,
+    ProjectService,
+    BoardService,
+    BoardColumnService,
+    TaskStateService,
+    TaskService,
+    SprintService
+  ]
 })
 export class AppModule {}
