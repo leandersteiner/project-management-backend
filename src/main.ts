@@ -1,11 +1,8 @@
-import express, { Request, Response } from 'express';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 
-const app = express();
-const port = 8080;
-
-app.get('/', (req: Request, res: Response) => {
-  console.log(req.url);
-  res.send('test');
-});
-
-app.listen(port, () => console.log(`server listening on port ${port}`));
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
+bootstrap();
