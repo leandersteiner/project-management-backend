@@ -10,10 +10,11 @@ import { BoardColumnService } from './board-column/board-column.service';
 import { TaskStateService } from './task-state/task-state.service';
 import { TaskService } from './task/task.service';
 import { SprintService } from './sprint/sprint.service';
+import { UserController } from './user/user.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController],
+  controllers: [AppController, UserController],
   providers: [AppService, PrismaService, UserService, TeamService, ProjectService, BoardService, BoardColumnService, TaskStateService, TaskService, SprintService],
 })
 export class AppModule {}
