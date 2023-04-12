@@ -9,7 +9,6 @@ export class TaskStateController {
 
   @Get()
   async getAll(): Promise<TaskState[]> {
-    console.log('hi');
     return this.taskStateService.all({});
   }
 
