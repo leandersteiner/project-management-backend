@@ -7,7 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     MongooseModule.forRoot('mongodb://mongo:mongo@db:27017', { dbName: 'mauwss2023' }),
     UserModule,
-    TaskStateModule]
+    TaskStateModule
+  ]
 })
 export class AppModule {
 }
