@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { Project } from 'src/project/project.interface';
-import { User } from 'src/user/user.interface';
+import { User } from 'src/user/user.schema';
 
 export interface Team extends Document {
   readonly name: string,
