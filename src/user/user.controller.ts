@@ -1,19 +1,20 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { UserService } from './user.service';
+import { User } from './user.interface';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
   async getAll(): Promise<User[]> {
+    console.log('hi');
     return this.userService.all({});
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string): Promise<User> {
-    return this.userService.find({ id });
+    return this.userService.find(id);
   }
 
   @Post()
@@ -28,6 +29,6 @@ export class UserController {
 
   @Delete('/:id')
   async delete(@Param('id') id: string): Promise<User> {
-    return this.userService.delete({ id });
+    return this.userService.delete(id);
   }
 }
