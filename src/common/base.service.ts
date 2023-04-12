@@ -1,34 +1,33 @@
 import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 
-export class BaseService<T, CreateDto> {
+export class BaseService<DataModel, CreateDto, UpdateDto> {
   constructor(
-    private model: Model<T>
+    private model: Model<DataModel>
   ) {
   }
 
-  find = async (id: string): Promise<T> => {
+  find = async (id: string): Promise<DataModel> => {
     return this.model.findById(id);
   };
 
-  all = async (params: { skip?: number; take?: number }): Promise<T[]> => {
+  all = async (params: { skip?: number; take?: number }): Promise<DataModel[]> => {
     const { skip, take } = params;
     return this.model.find().limit(take).skip(skip);
   };
 
-  create = async (data: CreateDto): Promise<T> => {
-    return this.model.create(data);
+  create = async (createDto: CreateDto): Promise<DataModel> => {
+    return this.model.create(createDto);
   };
 
-  update = async (params: { id: string; data: T }): Promise<T> => {
-    const { id, data } = params;
+  update = async (id: string, updateDto: UpdateDto): Promise<DataModel> => {
     return this.model.findOneAndUpdate(
       { _id: new mongoose.Types.ObjectId(id) },
-      { $set: data }
+      { $set: updateDto }
     );
   };
 
-  delete = async (id: string): Promise<T> => {
+  delete = async (id: string): Promise<DataModel> => {
     return this.model.findOneAndDelete({
       _id: new mongoose.Types.ObjectId(id)
     });

@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TaskStateService } from './task-state.service';
 import { TaskState } from './task-state.schema';
+import { CreateTaskStateDto } from './dto/create-task-state.dto';
 
 @Controller('task-states')
 export class TaskStateController {
@@ -19,11 +20,9 @@ export class TaskStateController {
 
   @Post()
   async create(
-    @Body() postData: { name: string }
+    @Body() createTaskStateDto: CreateTaskStateDto
   ): Promise<TaskState> {
-    return this.taskStateService.create({
-      name: postData.name
-    });
+    return this.taskStateService.create(createTaskStateDto);
   }
 
   @Delete('/:id')
