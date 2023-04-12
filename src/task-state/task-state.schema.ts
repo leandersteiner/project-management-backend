@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { ProjectSchema } from 'src/project/project.schema';
 
 export const TaskStateSchema = new mongoose.Schema(
   {
@@ -7,6 +6,7 @@ export const TaskStateSchema = new mongoose.Schema(
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
+    versionKey: false
   }
 );
