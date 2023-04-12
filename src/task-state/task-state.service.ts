@@ -1,13 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { BaseService } from '../common/base.service';
-import { TaskState } from './task-state.interface';
+import { TaskState } from './task-state.schema';
 import { CreateTaskStateDto } from './dto/create-task-state.dto';
 import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TaskStateService extends BaseService<TaskState, CreateTaskStateDto> {
   constructor(
-    @Inject('TASK_STATE_MODEL')
+    @InjectModel(TaskState.name)
     private taskStateModel: Model<TaskState>
   ) {
     super(taskStateModel);

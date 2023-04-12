@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TaskStateService } from './task-state.service';
-import { TaskState } from './task-state.interface';
+import { TaskState } from './task-state.schema';
 
 @Controller('task-states')
 export class TaskStateController {
