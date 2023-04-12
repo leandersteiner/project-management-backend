@@ -1,56 +1,39 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma, Board } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
+import { Inject, Injectable } from '@nestjs/common';
+import { Board } from './board.interface';
 
 @Injectable()
 export class BoardService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject('BOARD_MODEL')
+    private boardModel: Model<Board>
+  ) {}
 
-  find = async (
-    uniqueInput: Prisma.UserWhereUniqueInput
-  ): Promise<Board | null> => {
-    return this.prisma.board.findUnique({
-      where: uniqueInput
-    });
+  find = async (id: string): Promise<Board> => {
+    return this.boardModel.findById(id);
   };
 
-  all = async (params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.UserWhereUniqueInput;
-    where?: Prisma.UserWhereInput;
-    orderBy?: Prisma.UserOrderByWithRelationInput;
-  }): Promise<Board[]> => {
-    const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.board.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy
-    });
+  all = async (params: { skip?: number; take?: number }): Promise<Board[]> => {
+    const { skip, take } = params;
+    return this.boardModel.find().limit(take).skip(skip);
   };
 
-  create = async (data: Prisma.BoardCreateInput): Promise<Board> => {
-    return this.prisma.board.create({
-      data
-    });
+  create = async (data: Board): Promise<Board> => {
+    return this.boardModel.create(data);
   };
 
-  update = async (params: {
-    where: Prisma.BoardWhereUniqueInput;
-    data: Prisma.BoardUpdateInput;
-  }): Promise<Board> => {
-    const { where, data } = params;
-    return this.prisma.board.update({
-      data,
-      where
-    });
+  update = async (params: { id: string; data: Board }): Promise<Board> => {
+    const { id, data } = params;
+    return this.boardModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(id) },
+      { $set: data }
+    );
   };
 
-  delete = async (where: Prisma.BoardWhereUniqueInput): Promise<Board> => {
-    return this.prisma.board.delete({
-      where
+  delete = async (id: string): Promise<Board> => {
+    return this.boardModel.findOneAndDelete({
+      _id: new mongoose.Types.ObjectId(id)
     });
   };
 }
