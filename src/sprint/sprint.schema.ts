@@ -1,19 +1,24 @@
-import mongoose from 'mongoose';
-import { ProjectSchema } from 'src/project/project.schema';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { Project } from 'src/project/project.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Task } from '../task/task.schema';
 
-export const SprintSchema = new mongoose.Schema(
-  {
-    name: String,
-    project: ProjectSchema,
-    tasks: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tasks'
-      }
-    ]
-  },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  }
-);
+export type SprintDocument = HydratedDocument<Sprint>;
+
+@Schema({
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+  versionKey: false
+})
+export class Sprint {
+  @Prop()
+  name: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Project' })
+  project: Project;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }] })
+  tasks: Task[];
+}
+
+export const SprintSchema = SchemaFactory.createForClass(Sprint);

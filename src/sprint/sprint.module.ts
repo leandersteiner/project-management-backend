@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/database/database.module';
 import { SprintController } from './sprint.controller';
 import { SprintService } from './sprint.service';
-import { sprintProviders } from './sprint.providers';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Sprint, SprintSchema } from './sprint.schema';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    MongooseModule.forFeature([{ name: Sprint.name, schema: SprintSchema }])
+  ],
   controllers: [SprintController],
-  providers: [SprintService, ...sprintProviders]
+  providers: [SprintService]
 })
 export class SprintModule {}
