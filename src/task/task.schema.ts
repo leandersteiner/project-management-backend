@@ -1,18 +1,31 @@
-import mongoose from 'mongoose';
-import { BoardColumnSchema } from 'src/board-column/board-column.schema';
-import { SprintSchema } from 'src/sprint/sprint.schema';
-import { TaskStateSchema } from 'src/task-state/task-state.schema';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { TaskState } from 'src/task-state/task-state.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { BoardColumn } from '../board-column/board-column.schema';
+import { Sprint } from '../sprint/sprint.schema';
 
-export const TaskSchema = new mongoose.Schema(
-  {
-    name: String,
-    state: TaskStateSchema,
-    column: BoardColumnSchema,
-    done: Boolean,
-    sprint: SprintSchema
-  },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  }
-);
+export type TaskDocument = HydratedDocument<Task>;
+
+@Schema({
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+  versionKey: false
+})
+export class Task {
+  @Prop()
+  name: string;
+
+  @Prop()
+  done: boolean;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'BoardColumn' })
+  column: BoardColumn;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TaskState' })
+  state: TaskState;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Sprint' })
+  sprint: Sprint;
+}
+
+export const TaskSchema = SchemaFactory.createForClass(Task);
