@@ -1,29 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+import { BaseController } from '../common/base.controller';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  @Get()
-  async getAll(): Promise<User[]> {
-    return this.userService.all({});
-  }
-
-  @Get('/:id')
-  async getById(@Param('id') id: string): Promise<User> {
-    return this.userService.find(id);
-  }
-
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.create(createUserDto);
-  }
-
-  @Delete('/:id')
-  async delete(@Param('id') id: string): Promise<User> {
-    return this.userService.delete(id);
+export class UserController extends BaseController<
+  User,
+  CreateUserDto,
+  UpdateUserDto
+> {
+  constructor(private readonly userService: UserService) {
+    super(userService);
   }
 }
