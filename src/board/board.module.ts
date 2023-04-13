@@ -7,9 +7,6 @@ import { boardProviders } from './board.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [BoardController],
-  providers: [
-    BoardService,
-    ...boardProviders
-  ]
+  providers: [BoardService, ...boardProviders]
 })
 export class BoardModule {}

@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { ProjectSchema } from 'src/project/project.schema';
 
 export const SprintSchema = new mongoose.Schema(

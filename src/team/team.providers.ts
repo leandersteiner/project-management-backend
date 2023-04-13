@@ -4,7 +4,8 @@ import { TeamSchema } from './team.schema';
 export const teamProviders = [
   {
     provide: 'TEAM_MODEL',
-    useFactory: (connection: Connection) => connection.model('Team', TeamSchema),
+    useFactory: (connection: Connection) =>
+      connection.model('Team', TeamSchema),
     inject: ['DATABASE_CONNECTION']
   }
 ];

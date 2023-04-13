@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { TeamSchema } from 'src/team/team.schema';
 
 export const ProjectSchema = new mongoose.Schema(

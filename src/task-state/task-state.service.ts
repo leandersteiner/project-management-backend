@@ -7,7 +7,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UpdateTaskStateDto } from './dto/update-task-state.dto';
 
 @Injectable()
-export class TaskStateService extends BaseService<TaskState, CreateTaskStateDto, UpdateTaskStateDto> {
+export class TaskStateService extends BaseService<
+  TaskState,
+  CreateTaskStateDto,
+  UpdateTaskStateDto
+> {
   constructor(
     @InjectModel(TaskState.name)
     private taskStateModel: Model<TaskState>

@@ -5,8 +5,7 @@ import { CreateTaskStateDto } from './dto/create-task-state.dto';
 
 @Controller('task-states')
 export class TaskStateController {
-  constructor(private readonly taskStateService: TaskStateService) {
-  }
+  constructor(private readonly taskStateService: TaskStateService) {}
 
   @Get()
   async getAll(): Promise<TaskState[]> {

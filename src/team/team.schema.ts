@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { UserSchema } from 'src/user/user.schema';
 
 export const TeamSchema = new mongoose.Schema(

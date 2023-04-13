@@ -4,7 +4,8 @@ import { BoardColumnSchema } from './board-column.schema';
 export const boardColumnProviders = [
   {
     provide: 'BOARD_COLUMN_MODEL',
-    useFactory: (connection: Connection) => connection.model('BoardColumn', BoardColumnSchema),
+    useFactory: (connection: Connection) =>
+      connection.model('BoardColumn', BoardColumnSchema),
     inject: ['DATABASE_CONNECTION']
   }
 ];

@@ -1,5 +1,4 @@
-import * as mongoose from 'mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
 import { Board } from './board.interface';
 

@@ -7,7 +7,11 @@ import { BaseService } from '../common/base.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
-export class UserService extends BaseService<User, CreateUserDto, UpdateUserDto> {
+export class UserService extends BaseService<
+  User,
+  CreateUserDto,
+  UpdateUserDto
+> {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>

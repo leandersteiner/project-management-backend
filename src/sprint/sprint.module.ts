@@ -7,9 +7,6 @@ import { sprintProviders } from './sprint.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [SprintController],
-  providers: [
-    SprintService,
-    ...sprintProviders
-  ]
+  providers: [SprintService, ...sprintProviders]
 })
 export class SprintModule {}

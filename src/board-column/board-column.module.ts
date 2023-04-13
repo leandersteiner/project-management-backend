@@ -7,9 +7,6 @@ import { boardColumnProviders } from './board-column.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [BoardColumnController],
-  providers: [
-    BoardColumnService,
-    ...boardColumnProviders
-  ]
+  providers: [BoardColumnService, ...boardColumnProviders]
 })
 export class BoardColumnModule {}
