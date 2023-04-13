@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/database/database.module';
 import { BoardColumnController } from './board-column.controller';
 import { BoardColumnService } from './board-column.service';
-import { boardColumnProviders } from './board-column.providers';
+import { MongooseModule } from '@nestjs/mongoose';
+import { BoardColumn, BoardColumnSchema } from './board-column.schema';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    MongooseModule.forFeature([
+      { name: BoardColumn.name, schema: BoardColumnSchema }
+    ])
+  ],
   controllers: [BoardColumnController],
-  providers: [BoardColumnService, ...boardColumnProviders]
+  providers: [BoardColumnService]
 })
 export class BoardColumnModule {}
