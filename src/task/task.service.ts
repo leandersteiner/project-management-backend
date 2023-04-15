@@ -18,4 +18,11 @@ export class TaskService extends BaseService<
   ) {
     super(taskModel);
   }
+
+  findRel = async (id: string): Promise<Task> => {
+    const task = this.taskModel.findById(id).populate(['assignee', 'column']);
+    task.populate('state');
+    task.populate('sprint');
+    return task;
+  };
 }

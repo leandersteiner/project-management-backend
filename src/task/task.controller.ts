@@ -15,8 +15,8 @@ export class TaskController extends BaseController<
     super(taskService);
   }
 
-  @Get('/:id')
+  @Get('/test/:id')
   async findWithAll(@Param('id') id: string): Promise<Task> {
-    return this.taskService.find(id);
+    return this.taskService.findRel(id);
   }
 }
