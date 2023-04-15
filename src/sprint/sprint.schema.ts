@@ -14,6 +14,12 @@ export class Sprint {
   @Prop()
   name: string;
 
+  @Prop()
+  start: Date;
+
+  @Prop()
+  end: Date;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Project' })
   project: Project;
 
