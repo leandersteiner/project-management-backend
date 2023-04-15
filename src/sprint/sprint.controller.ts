@@ -5,7 +5,7 @@ import { CreateSprintDto } from './dto/create-sprint.dto';
 import { UpdateSprintDto } from './dto/update-sprint.dto';
 import { SprintService } from './sprint.service';
 
-@Controller('sprint')
+@Controller('sprints')
 export class SprintController extends BaseController<
   Sprint,
   CreateSprintDto,
