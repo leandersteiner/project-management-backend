@@ -18,4 +18,10 @@ export class UserService extends BaseService<
   ) {
     super(userModel);
   }
+
+  findByUsername = async (username: string): Promise<User> => {
+    return this.userModel.findOne({
+      username: username
+    });
+  };
 }
