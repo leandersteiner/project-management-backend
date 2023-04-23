@@ -77,6 +77,41 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDUyNWNmYTVhZTQ4ZjRkNTMyNzFiZSIsInVzZXJuYW1lIjoibHMiLCJzdWIiOiI2NDQ1MjVjZmE1YWU0OGY0ZDUzMjcxYmUiLCJpYXQiOjE2ODIyNTY4ODAsImV4cCI6MTY4MjI1OTg4MH0.F_T4-fBmd99zhz2GNX1h7UWMels5Vp3LpSPJ7qE5o7I",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"url": {
 							"raw": "localhost:8081/users",
 							"host": [
@@ -87,14 +122,6 @@
 								"users"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
@@ -110,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"description\",\n    \"done\": false,\n    \"state\": \"643af75ee3635d88ff043c16\",\n    \"column\": \"643afb4e9a0e862748fb6c70\",\n    \"sprint\": \"643af7a6e3635d88ff043c18\",\n    \"assignee\": \"643af72ae3635d88ff043c11\"\n}",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"description\",\n    \"done\": false,\n    \"state\": \"64453f9242cd1ec23ff7d001\",\n    \"column\": \"64453fb842cd1ec23ff7d007\",\n    \"sprint\": \"64453f9842cd1ec23ff7d003\",\n    \"assignee\": \"64453f7f42cd1ec23ff7cffa\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +187,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-project\",\n    \"private\": false,\n    \"team\": \"643af737e3635d88ff043c13\"\n}",
+							"raw": "{\n    \"name\": \"test-project\",\n    \"private\": false,\n    \"team\": \"64453f8c42cd1ec23ff7cffe\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -192,7 +219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-sprint\",\n    \"start\": {{$randomDateRecent}},\n    \"end\": {{$randomDateFuture}}\n}",
+							"raw": "{\n    \"name\": \"test-sprint\",\n    \"start\": \"{{$randomDateRecent}}\",\n    \"end\": \"{{$randomDateFuture}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -256,7 +283,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-team\",\n    \"private\": true,\n    \"owner\": \"\"\n}",
+							"raw": "{\n    \"name\": \"test-team\",\n    \"private\": true,\n    \"owner\": \"64453f7f42cd1ec23ff7cffa\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,6 +298,67 @@
 							"port": "8081",
 							"path": [
 								"teams"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"register"
 							]
 						}
 					},
