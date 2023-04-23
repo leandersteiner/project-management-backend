@@ -10,6 +10,7 @@ async function bootstrap() {
       versionKey: false,
       transform(doc, ret) {
         delete ret._id;
+        delete ret.password;
       }
     });
     schema.set('toObject', {
