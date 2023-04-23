@@ -21,21 +21,14 @@ export class Team {
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    autopopulate: true
+    ref: 'User'
   })
   owner: User;
 
-  @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    autopopulate: true
-  })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   members: User[];
 
-  @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
-    autopopulate: true
-  })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }] })
   projects: Project[];
 }
 
