@@ -1,6 +1,7 @@
 #!/bin/bash
 
-docker compose rm -f
+docker compose down
 docker image rm mauw-ss2023-backend-backend
 
-docker compose up
+docker compose up -d db
+npm run start:dev
