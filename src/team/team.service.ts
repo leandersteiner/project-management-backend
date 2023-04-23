@@ -18,4 +18,10 @@ export class TeamService extends BaseService<
   ) {
     super(teamModel);
   }
+
+  findForUser = async (userId: string): Promise<Team[]> => {
+    return this.teamModel.find({
+      owner: userId
+    });
+  };
 }
