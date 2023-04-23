@@ -8,9 +8,11 @@ import { SprintModule } from './sprint/sprint.module';
 import { ProjectModule } from './project/project.module';
 import { BoardColumnModule } from './board-column/board-column.module';
 import { BoardModule } from './board/board.module';
+import { AuthModule } from './auth/auth.module';
 import * as process from 'process';
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongo:mongo@db:27017';
+const MONGO_URL =
+  process.env.MONGO_URL || 'mongodb://mongo:mongo@127.0.0.1:27017';
 const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'mauwss2023';
 
 @Module({
@@ -23,7 +25,8 @@ const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'mauwss2023';
     SprintModule,
     ProjectModule,
     BoardColumnModule,
-    BoardModule
+    BoardModule,
+    AuthModule
   ]
 })
 export class AppModule {}
