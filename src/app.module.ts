@@ -17,7 +17,14 @@ const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'mauwss2023';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(MONGO_URL, { dbName: MONGO_DB_NAME }),
+    MongooseModule.forRoot(MONGO_URL, {
+      dbName: MONGO_DB_NAME,
+      connectionFactory: (connection) => {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        connection.plugin(require('mongoose-autopopulate'));
+        return connection;
+      }
+    }),
     UserModule,
     TaskStateModule,
     TeamModule,

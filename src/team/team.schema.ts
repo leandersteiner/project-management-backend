@@ -19,13 +19,23 @@ export class Team {
   @Prop()
   private: boolean;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    autopopulate: true
+  })
   owner: User;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    autopopulate: true
+  })
   members: User[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
+    autopopulate: true
+  })
   projects: Project[];
 }
 
