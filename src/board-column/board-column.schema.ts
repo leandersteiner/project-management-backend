@@ -11,6 +11,8 @@ export type BoardColumnDocument = HydratedDocument<BoardColumn>;
   versionKey: false
 })
 export class BoardColumn {
+  id: string;
+
   @Prop()
   title: string;
 

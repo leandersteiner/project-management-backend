@@ -11,6 +11,8 @@ export type BoardDocument = HydratedDocument<Board>;
   versionKey: false
 })
 export class Board {
+  id: string;
+
   @Prop()
   title: string;
 

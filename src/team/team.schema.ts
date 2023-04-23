@@ -11,6 +11,8 @@ export type TeamDocument = HydratedDocument<Team>;
   versionKey: false
 })
 export class Team {
+  id: string;
+
   @Prop()
   name: string;
 

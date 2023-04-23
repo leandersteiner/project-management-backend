@@ -11,6 +11,8 @@ export type SprintDocument = HydratedDocument<Sprint>;
   versionKey: false
 })
 export class Sprint {
+  id: string;
+
   @Prop()
   name: string;
 

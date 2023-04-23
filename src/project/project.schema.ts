@@ -14,6 +14,8 @@ export type ProjectDocument = HydratedDocument<Project>;
   versionKey: false
 })
 export class Project {
+  id: string;
+
   @Prop()
   name: string;
 

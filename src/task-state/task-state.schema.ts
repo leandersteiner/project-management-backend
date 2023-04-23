@@ -9,6 +9,8 @@ export type TaskStateDocument = HydratedDocument<TaskState>;
   versionKey: false
 })
 export class TaskState {
+  id: string;
+  
   @Prop()
   name: string;
 }

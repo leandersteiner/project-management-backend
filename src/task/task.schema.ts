@@ -13,6 +13,8 @@ export type TaskDocument = HydratedDocument<Task>;
   versionKey: false
 })
 export class Task {
+  id: string;
+
   @Prop()
   name: string;
 
