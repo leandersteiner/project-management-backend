@@ -24,4 +24,8 @@ export class UserService extends BaseService<
       username: username
     });
   };
+
+  findMultiple = async (ids: string[]): Promise<User[]> => {
+    return this.userModel.find().where('_id').in(ids).exec();
+  };
 }
