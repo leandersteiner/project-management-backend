@@ -26,6 +26,6 @@ export class UserService extends BaseService<
   };
 
   findMultiple = async (ids: string[]): Promise<User[]> => {
-    return this.userModel.find().where('_id').in(ids).exec();
+    return this.userModel.find({ _id: { $in: ids } });
   };
 }
