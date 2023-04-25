@@ -9,6 +9,7 @@ import { ProjectModule } from './project/project.module';
 import { BoardColumnModule } from './board-column/board-column.module';
 import { BoardModule } from './board/board.module';
 import { AuthModule } from './auth/auth.module';
+import { OrganisationModule } from './organisation/organisation.module';
 import * as process from 'process';
 
 const MONGO_URL =
@@ -33,7 +34,8 @@ const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'mauwss2023';
     ProjectModule,
     BoardColumnModule,
     BoardModule,
-    AuthModule
+    AuthModule,
+    OrganisationModule
   ]
 })
 export class AppModule {}
