@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import mongoose from 'mongoose';
-import { useRequestLogging } from './middleware/request-logging';
+import { useRequestLogging } from './common/request-logging';
 
 async function bootstrap() {
   mongoose.plugin((schema) => {
