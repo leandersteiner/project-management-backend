@@ -5,6 +5,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { BaseController } from '../common/base.controller';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { AllowedGuard } from '../auth/allowed.guard';
 
 @UseGuards(AuthGuard)
 @Controller()
@@ -17,10 +18,12 @@ export class TeamController extends BaseController<
     super(teamService);
   }
 
-  @Get('/users/:id/teams')
-  async getByUserId(@Request() req, @Param('id') id: string): Promise<Team[]> {
-    //TODO: remove
-    console.log(req.user);
+  @UseGuards(AllowedGuard)
+  @Get('/users/:userId/teams')
+  async getByUserId(
+    @Request() req,
+    @Param('userId') id: string
+  ): Promise<Team[]> {
     return this.teamService.findForUser(id);
   }
 }
