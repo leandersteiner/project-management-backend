@@ -31,7 +31,7 @@ export class TeamController extends BaseController<
     @Request() req,
     @Param('userId') id: string
   ): Promise<Team[]> {
-    return this.teamService.findForUser(id);
+    return this.teamService.findAllForUser(id);
   }
 
   @Post('/users/:userId/teams')

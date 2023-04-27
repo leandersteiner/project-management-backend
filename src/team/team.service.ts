@@ -19,15 +19,22 @@ export class TeamService extends BaseService<
     super(teamModel);
   }
 
-  findForUser = async (userId: string): Promise<Team[]> => {
-    const ownedTeams = await this.teamModel.find({
+  findAllForUser = async (userId: string): Promise<Team[]> => {
+    return [
+      ...(await this.findInvitedForUser(userId)),
+      ...(await this.findOwnedForUser(userId))
+    ];
+  };
+
+  findOwnedForUser = async (userId: string): Promise<Team[]> => {
+    return this.teamModel.find({
       owner: userId
     });
+  };
 
-    const invitedTeams = await this.teamModel.find({
+  findInvitedForUser = async (userId: string): Promise<Team[]> => {
+    return this.teamModel.find({
       members: userId
     });
-
-    return [...ownedTeams, ...invitedTeams];
   };
 }
