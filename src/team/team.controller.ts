@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Request,
-  UseGuards
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { Team } from './team.schema';
 import { CreateTeamDto } from './dto/create-team.dto';
@@ -27,15 +19,12 @@ export class TeamController extends BaseController<
   }
 
   @Get('/users/:userId/teams')
-  async getByUserId(
-    @Request() req,
-    @Param('userId') id: string
-  ): Promise<Team[]> {
-    return this.teamService.findAllForUser(id);
+  async getByUserId(@Param('userId') userId: string): Promise<Team[]> {
+    return this.teamService.findAllForUser(userId);
   }
 
   @Post('/users/:userId/teams')
-  async create(@Body() createDto: CreateTeamDto): Promise<Team> {
-    return this.teamService.create(createDto);
+  async create(@Body() createTeamDto: CreateTeamDto): Promise<Team> {
+    return this.teamService.create(createTeamDto);
   }
 }
