@@ -1,370 +1,487 @@
 {
-	"info": {
-		"_postman_id": "a3519405-39de-49e4-825e-190108ed16d2",
-		"name": "mauw-backend",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "board",
-			"item": [
-				{
-					"name": "Create Board",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"test-board\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/boards",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"boards"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "board-column",
-			"item": [
-				{
-					"name": "Create Board Column",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"test-board-column\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/board-columns",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"board-columns"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "user",
-			"item": [
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/auth/register",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDUyNWNmYTVhZTQ4ZjRkNTMyNzFiZSIsInVzZXJuYW1lIjoibHMiLCJzdWIiOiI2NDQ1MjVjZmE1YWU0OGY0ZDUzMjcxYmUiLCJpYXQiOjE2ODIyNTY4ODAsImV4cCI6MTY4MjI1OTg4MH0.F_T4-fBmd99zhz2GNX1h7UWMels5Vp3LpSPJ7qE5o7I",
-								"type": "default",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "localhost:8081/users",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "task",
-			"item": [
-				{
-					"name": "Create Task",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"description\",\n    \"done\": false,\n    \"state\": \"64453f9242cd1ec23ff7d001\",\n    \"column\": \"64453fb842cd1ec23ff7d007\",\n    \"sprint\": \"64453f9842cd1ec23ff7d003\",\n    \"assignee\": \"64453f7f42cd1ec23ff7cffa\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/tasks",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"tasks"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8081/tasks",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"tasks"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "project",
-			"item": [
-				{
-					"name": "Create Project",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-project\",\n    \"private\": false,\n    \"team\": \"64453f8c42cd1ec23ff7cffe\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/projects",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"projects"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "sprint",
-			"item": [
-				{
-					"name": "Create Sprint",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-sprint\",\n    \"start\": \"{{$randomDateRecent}}\",\n    \"end\": \"{{$randomDateFuture}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/sprints",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"sprints"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "task-state",
-			"item": [
-				{
-					"name": "Create Task State",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-task-state\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/task-states",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"task-states"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "team",
-			"item": [
-				{
-					"name": "Create Team",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test-team\",\n    \"private\": true,\n    \"owner\": \"64453f7f42cd1ec23ff7cffa\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/teams",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"teams"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "auth",
-			"item": [
-				{
-					"name": "login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/auth/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8081/auth/register",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "4c8288e0-4ea4-4e9e-9f5d-b90125fb9487",
+    "name": "mauw-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "board",
+      "item": [
+        {
+          "name": "Create Board",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"test-board\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/boards",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "boards"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "board-column",
+      "item": [
+        {
+          "name": "Create Board Column",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"test-board-column\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/board-columns",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "board-columns"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/auth/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDUyNWNmYTVhZTQ4ZjRkNTMyNzFiZSIsInVzZXJuYW1lIjoibHMiLCJzdWIiOiI2NDQ1MjVjZmE1YWU0OGY0ZDUzMjcxYmUiLCJpYXQiOjE2ODIyNTY4ODAsImV4cCI6MTY4MjI1OTg4MH0.F_T4-fBmd99zhz2GNX1h7UWMels5Vp3LpSPJ7qE5o7I",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8081/users",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "task",
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test\",\n    \"description\": \"description\",\n    \"done\": false,\n    \"state\": \"64453f9242cd1ec23ff7d001\",\n    \"column\": \"64453fb842cd1ec23ff7d007\",\n    \"sprint\": \"64453f9842cd1ec23ff7d003\",\n    \"assignee\": \"64453f7f42cd1ec23ff7cffa\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/tasks",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/tasks",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test-project\",\n    \"private\": false,\n    \"team\": \"64453f8c42cd1ec23ff7cffe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/projects",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "sprint",
+      "item": [
+        {
+          "name": "Create Sprint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test-sprint\",\n    \"start\": \"{{$randomDateRecent}}\",\n    \"end\": \"{{$randomDateFuture}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/sprints",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "sprints"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "task-state",
+      "item": [
+        {
+          "name": "Create Task State",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test-task-state\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/task-states",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "task-states"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "item": [
+        {
+          "name": "Create Team",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test-team\",\n    \"private\": true,\n    \"owner\": \"644aac034c277a59a216fe52\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/users/:userId/teams",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "users",
+                ":userId",
+                "teams"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Teams for user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/users/:id/teams",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "users",
+                ":id",
+                "teams"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"ls\",\n    \"password\": \"cpigtr12#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/auth/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"ls2\",\n    \"password\": \"cpigtr12#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/auth/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const url = pm.collectionVariables.get(\"token_endpoint\");",
+          "const username = pm.collectionVariables.get(\"username\");",
+          "const password = pm.collectionVariables.get(\"password\");",
+          "",
+          "const postRequest = {",
+          "    url: pm.collectionVariables.get(\"token_endpoint\"),",
+          "    method: \"post\",",
+          "    body: {",
+          "       mode: \"raw\",",
+          "       raw: JSON.stringify({",
+          "           username: username, ",
+          "           password: password",
+          "        }),",
+          "        options: {",
+          "            raw: {",
+          "                language: \"json\"",
+          "            }",
+          "    }",
+          "   }",
+          "};",
+          "",
+          "pm.sendRequest(postRequest, (error, response) => {",
+          "    if (error) {",
+          "        console.log(error);",
+          "    } else {",
+          "        pm.collectionVariables.set(\"access_token\", response.json().token);",
+          "        pm.collectionVariables.set(\"user_id\", response.json().user.id);",
+          "    }",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "username",
+      "value": "ls",
+      "type": "default"
+    },
+    {
+      "key": "password",
+      "value": "cpigtr12#",
+      "type": "default"
+    },
+    {
+      "key": "token_endpoint",
+      "value": "http://localhost:8081/auth/login",
+      "type": "default"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "user_id",
+      "value": ""
+    }
+  ]
 }
