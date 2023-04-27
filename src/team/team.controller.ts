@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards
+} from '@nestjs/common';
 import { TeamService } from './team.service';
 import { Team } from './team.schema';
 import { CreateTeamDto } from './dto/create-team.dto';
@@ -7,7 +15,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { AllowedGuard } from '../auth/allowed.guard';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, AllowedGuard)
 @Controller()
 export class TeamController extends BaseController<
   Team,
@@ -18,12 +26,16 @@ export class TeamController extends BaseController<
     super(teamService);
   }
 
-  @UseGuards(AllowedGuard)
   @Get('/users/:userId/teams')
   async getByUserId(
     @Request() req,
     @Param('userId') id: string
   ): Promise<Team[]> {
     return this.teamService.findForUser(id);
+  }
+
+  @Post('/users/:userId/teams')
+  async create(@Body() createDto: CreateTeamDto): Promise<Team> {
+    return this.teamService.create(createDto);
   }
 }
