@@ -1,10 +1,12 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { Team } from './team.schema';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { BaseController } from '../common/base.controller';
 import { UpdateTeamDto } from './dto/update-team.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller()
 export class TeamController extends BaseController<
   Team,
@@ -15,8 +17,10 @@ export class TeamController extends BaseController<
     super(teamService);
   }
 
-  @Get('/user/:id/teams')
-  async getByUserId(@Param('id') id: string): Promise<Team[]> {
+  @Get('/users/:id/teams')
+  async getByUserId(@Request() req, @Param('id') id: string): Promise<Team[]> {
+    //TODO: remove
+    console.log(req.user);
     return this.teamService.findForUser(id);
   }
 }
