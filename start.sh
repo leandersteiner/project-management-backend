@@ -1,7 +1,7 @@
 #!/bin/bash
 
-docker compose -f ./deployment/docker-compose.yaml down
+docker compose down
 docker image rm mauw-ss2023-backend-backend
 
-docker compose -f ./deployment/docker-compose.yaml up db -d
+docker compose up db -d
 npm run start:dev
