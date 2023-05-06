@@ -25,6 +25,7 @@ export class User {
   public email: string;
 
   @Column({ type: 'boolean', default: false })
+  @Exclude()
   public isDeleted: boolean;
 
   @OneToMany(() => Team, (team) => team.owner)

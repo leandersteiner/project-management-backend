@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/user.entity';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { LoginUserDto } from '../user/dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,12 +14,14 @@ export class AuthService {
   ) {}
 
   async signIn(
-    username: string,
-    password: string
+    loginUserDto: LoginUserDto
   ): Promise<{ token: string; user: User }> {
-    const user = await this.userService.findByUsername(username);
+    const user = await this.userService.findByUsername(loginUserDto.username);
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (
+      !user ||
+      !(await bcrypt.compare(loginUserDto.password, user.password))
+    ) {
       throw new UnauthorizedException();
     }
 
@@ -34,7 +37,8 @@ export class AuthService {
     createUserDto: CreateUserDto
   ): Promise<{ token: string; user: User }> {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
-    const user = await this.userService.create(createUserDto);
+    await this.userService.create(createUserDto);
+    const user = await this.userService.findByUsername(createUserDto.username);
 
     const payload = { id: user.id, username: user.username, sub: user.id };
 
