@@ -4,7 +4,7 @@ services:
 
   backend:
     build:
-      context: .
+      context: ..
     restart: unless-stopped
     ports:
       - '8081:8081'
@@ -12,15 +12,13 @@ services:
       - db
 
   db:
-    image: mongo
+    image: postgres
     restart: unless-stopped
     ports:
-      - '27017:27017'
+      - '5432:5432'
     volumes:
-      - db:/data/db
+      - ~/data/dbs/mauw:/var/lib/postgresql/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=mongo
-      - MONGO_INITDB_ROOT_PASSWORD=mongo
-
-volumes:
-  db:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mauwss2023

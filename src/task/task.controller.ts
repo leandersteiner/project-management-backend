@@ -1,19 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { BaseController } from '../common/base.controller';
-import { Task } from './task.schema';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from './task.entity';
 import { TaskService } from './task.service';
 
 @Controller('tasks')
-export class TaskController extends BaseController<
-  Task,
-  CreateTaskDto,
-  UpdateTaskDto
-> {
-  constructor(private readonly taskService: TaskService) {
-    super(taskService);
-  }
+export class TaskController {
+  constructor(private readonly taskService: TaskService) {}
 
   @Get('/test/:id')
   async findWithAll(@Param('id') id: string): Promise<Task> {

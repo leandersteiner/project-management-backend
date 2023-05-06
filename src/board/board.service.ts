@@ -1,21 +1,12 @@
-import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { Board } from './board.schema';
-import { BaseService } from '../common/base.service';
-import { CreateBoardDto } from './dto/create-board.dto';
-import { UpdateBoardDto } from './dto/update-board.dto';
-import { InjectModel } from '@nestjs/mongoose';
+import { Board } from './board.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class BoardService extends BaseService<
-  Board,
-  CreateBoardDto,
-  UpdateBoardDto
-> {
+export class BoardService {
   constructor(
-    @InjectModel(Board.name)
-    private boardModel: Model<Board>
-  ) {
-    super(boardModel);
-  }
+    @InjectRepository(Board)
+    private readonly repository: Repository<Board>
+  ) {}
 }

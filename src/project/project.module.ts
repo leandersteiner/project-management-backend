@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Project, ProjectSchema } from './project.schema';
 import { ProjectController } from './project.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Project } from './project.entity';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }])
-  ],
+  imports: [TypeOrmModule.forFeature([Project])],
   controllers: [ProjectController],
   providers: [ProjectService]
 })

@@ -1,3 +1,7 @@
-export interface UpdateTaskStateDto {
-  readonly name: string;
+import { IsNotEmpty, IsString } from 'class-validator';
+
+export class UpdateTaskStateDto {
+  @IsString()
+  @IsNotEmpty()
+  public name: string;
 }

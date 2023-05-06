@@ -1,23 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../common/base.service';
-import { Team } from './team.schema';
+import { UserService } from '../user/user.service';
+import { Team } from './team.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
-export class TeamService extends BaseService<
-  Team,
-  CreateTeamDto,
-  UpdateTeamDto
-> {
+export class TeamService {
   constructor(
-    @InjectModel(Team.name)
-    private teamModel: Model<Team>
-  ) {
-    super(teamModel);
-  }
+    @InjectRepository(Team)
+    private readonly repository: Repository<Team>,
+    private readonly userService: UserService
+  ) {}
 
   findAllForUser = async (userId: string): Promise<Team[]> => {
     return [
@@ -27,14 +21,34 @@ export class TeamService extends BaseService<
   };
 
   findOwnedForUser = async (userId: string): Promise<Team[]> => {
-    return this.teamModel.find({
-      owner: userId
+    return this.repository.findBy({
+      owner: {
+        id: userId
+      }
     });
   };
 
   findInvitedForUser = async (userId: string): Promise<Team[]> => {
-    return this.teamModel.find({
-      members: userId
+    return this.repository.findBy({
+      members: {
+        id: userId
+      }
     });
+  };
+
+  addUserToTeam = async (userId: string, teamId: string): Promise<Team> => {
+    const team = await this.repository.findOneBy({ id: teamId });
+    const user = await this.userService.findById(userId);
+    team.members.push(user);
+    await this.repository.save(team);
+    return team;
+  };
+
+  create = async (createDto: CreateTeamDto): Promise<Team> => {
+    return this.repository.create(createDto);
+  };
+
+  delete = async (id: string): Promise<void> => {
+    await this.repository.delete({ id: id });
   };
 }

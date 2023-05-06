@@ -1,4 +1,16 @@
-export interface CreateUserDto {
-  readonly username: string;
-  readonly password: string;
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  public username: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  //@IsStrongPassword()
+  public password: string;
 }

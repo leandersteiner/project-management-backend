@@ -1,28 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../common/base.service';
-import { Task } from './task.schema';
-import { CreateTaskStateDto } from '../task-state/dto/create-task-state.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Task } from './task.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class TaskService extends BaseService<
-  Task,
-  CreateTaskStateDto,
-  UpdateTaskDto
-> {
+export class TaskService {
   constructor(
-    @InjectModel(Task.name)
-    private taskModel: Model<Task>
-  ) {
-    super(taskModel);
-  }
+    @InjectRepository(Task)
+    private repository: Repository<Task>
+  ) {}
 
   findRel = async (id: string): Promise<Task> => {
-    const task = this.taskModel.findById(id).populate(['assignee', 'column']);
-    task.populate('state');
-    task.populate('sprint');
-    return task;
+    return this.repository.findOneBy({ id: id });
   };
 }

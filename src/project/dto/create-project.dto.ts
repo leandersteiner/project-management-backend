@@ -1,7 +1,10 @@
-import { Team } from 'src/team/team.schema';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
-export interface CreateProjectDto {
-  readonly name: string;
-  readonly private: boolean;
-  readonly team: Team;
+export class CreateProjectDto {
+  @IsString()
+  @IsNotEmpty()
+  public name: string;
+
+  @IsBoolean()
+  public private: boolean;
 }

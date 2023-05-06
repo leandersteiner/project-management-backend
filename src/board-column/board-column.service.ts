@@ -1,21 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../common/base.service';
-import { BoardColumn } from './board-column.schema';
-import { CreateBoardColumnDto } from './dto/create-board-column.dto';
-import { UpdateBoardColumnDto } from './dto/update-board-column.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { BoardColumn } from './board-column.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class BoardColumnService extends BaseService<
-  BoardColumn,
-  CreateBoardColumnDto,
-  UpdateBoardColumnDto
-> {
+export class BoardColumnService {
   constructor(
-    @InjectModel(BoardColumn.name)
-    private boardColumnModel: Model<BoardColumn>
-  ) {
-    super(boardColumnModel);
-  }
+    @InjectRepository(BoardColumn)
+    private readonly repository: Repository<BoardColumn>
+  ) {}
 }

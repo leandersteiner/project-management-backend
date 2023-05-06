@@ -1,31 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user.schema';
-import { Model } from 'mongoose';
+import { User } from './user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { BaseService } from '../common/base.service';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
-export class UserService extends BaseService<
-  User,
-  CreateUserDto,
-  UpdateUserDto
-> {
+export class UserService {
   constructor(
-    @InjectModel(User.name)
-    private userModel: Model<User>
-  ) {
-    super(userModel);
-  }
+    @InjectRepository(User)
+    private readonly repository: Repository<User>
+  ) {}
 
   findByUsername = async (username: string): Promise<User> => {
-    return this.userModel.findOne({
+    return this.repository.findOneBy({
       username: username
     });
   };
 
+  findById = async (id: string): Promise<User> => {
+    return this.repository.findOneBy({
+      id: id
+    });
+  };
+
+  create = async (createDto: CreateUserDto): Promise<User> => {
+    return this.repository.create(createDto);
+  };
+
+  delete = async (id: string): Promise<void> => {
+    await this.repository.delete({ id: id });
+  };
+
   findMultiple = async (ids: string[]): Promise<User[]> => {
-    return this.userModel.find({ _id: { $in: ids } });
+    return this.repository.findBy({ id: In(ids) });
   };
 }

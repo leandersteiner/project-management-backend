@@ -1,22 +1,15 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { TeamService } from './team.service';
-import { Team } from './team.schema';
+import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
-import { BaseController } from '../common/base.controller';
-import { UpdateTeamDto } from './dto/update-team.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { AllowedGuard } from '../auth/allowed.guard';
+import { AddUserToTeamDto } from './dto/add-user-to-team.dto';
 
 @UseGuards(AuthGuard, AllowedGuard)
 @Controller()
-export class TeamController extends BaseController<
-  Team,
-  CreateTeamDto,
-  UpdateTeamDto
-> {
-  constructor(private readonly teamService: TeamService) {
-    super(teamService);
-  }
+export class TeamController {
+  constructor(private readonly teamService: TeamService) {}
 
   @Get('/users/:userId/teams')
   async getByUserId(@Param('userId') userId: string): Promise<Team[]> {
@@ -26,5 +19,13 @@ export class TeamController extends BaseController<
   @Post('/users/:userId/teams')
   async create(@Body() createTeamDto: CreateTeamDto): Promise<Team> {
     return this.teamService.create(createTeamDto);
+  }
+
+  @Post('/users/:userId/teams/:teamId')
+  async addUserToTeam(
+    @Param('teamId') teamId: string,
+    @Body() addUserDto: AddUserToTeamDto
+  ): Promise<Team> {
+    return this.teamService.addUserToTeam(addUserDto.userId, teamId);
   }
 }

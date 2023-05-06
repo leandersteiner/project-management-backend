@@ -1,3 +1,7 @@
-export interface UpdateBoardDto {
-  readonly title: string;
+import { IsNotEmpty, IsString } from 'class-validator';
+
+export class UpdateBoardDto {
+  @IsString()
+  @IsNotEmpty()
+  public title: string;
 }

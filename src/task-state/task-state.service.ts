@@ -1,21 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../common/base.service';
-import { TaskState } from './task-state.schema';
-import { CreateTaskStateDto } from './dto/create-task-state.dto';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { UpdateTaskStateDto } from './dto/update-task-state.dto';
+import { TaskState } from './task-state.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class TaskStateService extends BaseService<
-  TaskState,
-  CreateTaskStateDto,
-  UpdateTaskStateDto
-> {
+export class TaskStateService {
   constructor(
-    @InjectModel(TaskState.name)
-    private taskStateModel: Model<TaskState>
-  ) {
-    super(taskStateModel);
-  }
+    @InjectRepository(TaskState)
+    private readonly repository: Repository<TaskState>
+  ) {}
 }
