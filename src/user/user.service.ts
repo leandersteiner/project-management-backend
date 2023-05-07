@@ -17,6 +17,12 @@ export class UserService {
     });
   };
 
+  findByEmail = async (email: string): Promise<User> => {
+    return this.repository.findOneBy({
+      email: email
+    });
+  };
+
   findById = async (id: string): Promise<User> => {
     return this.repository.findOneBy({
       id: id

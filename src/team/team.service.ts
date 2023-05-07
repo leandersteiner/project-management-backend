@@ -13,14 +13,18 @@ export class TeamService {
     private readonly userService: UserService
   ) {}
 
+  findById = async (teamId: string): Promise<Team> => {
+    return this.repository.findOneBy({ id: teamId });
+  };
+
   findAllForUser = async (userId: string): Promise<Team[]> => {
     return [
       ...(await this.findInvitedForUser(userId)),
-      ...(await this.findOwnedForUser(userId))
+      ...(await this.findOwnedByUser(userId))
     ];
   };
 
-  findOwnedForUser = async (userId: string): Promise<Team[]> => {
+  findOwnedByUser = async (userId: string): Promise<Team[]> => {
     return this.repository.findBy({
       owner: {
         id: userId
@@ -37,15 +41,19 @@ export class TeamService {
   };
 
   addUserToTeam = async (userId: string, teamId: string): Promise<Team> => {
-    const team = await this.repository.findOneBy({ id: teamId });
+    const team = await this.repository.findOne({
+      where: { id: teamId },
+      relations: ['members']
+    });
     const user = await this.userService.findById(userId);
-    team.members.push(user);
+    const memberIds = team.members.map((member) => member.id);
+    if (memberIds.includes(user.id)) return team;
     await this.repository.save(team);
     return team;
   };
 
   create = async (createDto: CreateTeamDto): Promise<Team> => {
-    return this.repository.create(createDto);
+    return this.repository.save(createDto);
   };
 
   delete = async (id: string): Promise<void> => {
