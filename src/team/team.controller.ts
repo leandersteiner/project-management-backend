@@ -15,21 +15,21 @@ import { AllowedGuard } from '../auth/allowed.guard';
 import { AddUserToTeamDto } from './dto/add-user-to-team.dto';
 
 @UseGuards(AuthGuard, AllowedGuard)
-@Controller()
+@Controller('orgs/:orgId')
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
-  @Get('/users/:userId/teams')
+  @Get('/teams')
   async getByUserId(@Param('userId') userId: string): Promise<Team[]> {
     return this.teamService.findAllForUser(userId);
   }
 
-  @Post('/users/:userId/teams')
+  @Post('/teams')
   async create(@Body() createTeamDto: CreateTeamDto): Promise<Team> {
     return this.teamService.create(createTeamDto);
   }
 
-  @Post('/users/:userId/teams/:teamId')
+  @Post('/:ownerId/teams/:teamId')
   async addUserToTeam(
     @Param('teamId') teamId: string,
     @Body() addUserDto: AddUserToTeamDto
@@ -37,7 +37,7 @@ export class TeamController {
     return this.teamService.addUserToTeam(addUserDto.userId, teamId);
   }
 
-  @Delete('users/:userId/teams/:teamId')
+  @Delete('/:ownerId/teams/:teamId')
   async delete(@Param('teamId') teamId: string): Promise<Team> {
     const team = this.teamService.findById(teamId);
     await this.teamService.delete(teamId);
