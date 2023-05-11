@@ -4,6 +4,7 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -19,8 +20,11 @@ export class Organisation {
   @Column({ type: 'varchar', length: 120 })
   public name: string;
 
+  @ManyToOne(() => User, (user) => user.teams)
+  public owner: User;
+
   @OneToMany(() => Team, (team) => team.organisation)
-  public team: Team[];
+  public teams: Team[];
 
   @ManyToMany(() => User)
   @JoinTable()
