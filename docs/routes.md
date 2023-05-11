@@ -8,6 +8,7 @@
 ## Users
 
 - GET /users/:userId
+- PATCH /users/:userId
 - DELETE /users/:userId
 
 ## Organisations
@@ -29,9 +30,9 @@
 ## Projects
 
 - GET /projects
+- GET /projects/:projectId
 - GET /orgs/:orgId/projects
 - GET /orgs/:orgId/projects/:projectId
-- GET /projects/:projectId
 - POST /projects
 - POST /orgs/:orgId/projects
 - POST /orgs/:orgId - Add user to org
@@ -43,9 +44,9 @@
 - GET /projects/:projectId/board
 - GET /projects/:projectId/board/columns
 - GET /projects/:projectId/board/columns/:columnId
-- POST /projects/:projectId/board/column
-- PATCH /projects/:projectId/board/column/:columnId
-- DELETE /projects/:projectId/tasks/:taskId
+- POST /projects/:projectId/board/columns
+- PATCH /projects/:projectId/board/columns/:columnId
+- DELETE /projects/:projectId/board/columns/:columnId
 
 ## Tasks
 
