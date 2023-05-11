@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { Organisation } from './organisation.entity';
+import { AddUserToOrganisationDto } from './dto/add-user-to-organisation.dto';
 
 @Injectable()
 export class OrganisationService {
@@ -41,14 +42,13 @@ export class OrganisationService {
   };
 
   addUserToOrganisation = async (
-    userId: string,
-    organisationId: string
+    addUserDto: AddUserToOrganisationDto
   ): Promise<Organisation> => {
     const organisation = await this.repository.findOne({
-      where: { id: organisationId },
+      where: { id: addUserDto.organisationId },
       relations: ['members']
     });
-    const user = await this.userService.findById(userId);
+    const user = await this.userService.findById(addUserDto.userId);
     const memberIds = organisation.members.map((member) => member.id);
     if (memberIds.includes(user.id)) return organisation;
     await this.repository.save(organisation);

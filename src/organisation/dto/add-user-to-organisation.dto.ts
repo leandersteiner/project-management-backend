@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class AddUserToTeamDto {
+export class AddUserToOrganisationDto {
   @IsString()
   @IsNotEmpty()
   public userId: string;
