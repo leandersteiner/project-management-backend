@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   UseGuards
@@ -19,16 +21,25 @@ import { AddUserToTeamDto } from './dto/add-user-to-team.dto';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
+  @HttpCode(HttpStatus.OK)
   @Get('/teams')
   async getByUserId(@Param('userId') userId: string): Promise<Team[]> {
     return this.teamService.findAllForUser(userId);
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Get('/teams/:teamId')
+  async getById(@Param('teamId') teamId: string): Promise<Team> {
+    return this.teamService.findById(teamId);
+  }
+
+  @HttpCode(HttpStatus.CREATED)
   @Post('/teams')
   async create(@Body() createTeamDto: CreateTeamDto): Promise<Team> {
     return this.teamService.create(createTeamDto);
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('/:ownerId/teams/:teamId')
   async addUserToTeam(
     @Param('teamId') teamId: string,
@@ -37,7 +48,8 @@ export class TeamController {
     return this.teamService.addUserToTeam(addUserDto.userId, teamId);
   }
 
-  @Delete('/:ownerId/teams/:teamId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/teams/:teamId')
   async delete(@Param('teamId') teamId: string): Promise<Team> {
     const team = this.teamService.findById(teamId);
     await this.teamService.delete(teamId);

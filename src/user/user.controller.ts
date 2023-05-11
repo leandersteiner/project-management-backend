@@ -1,4 +1,14 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  UseInterceptors
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 
@@ -6,15 +16,24 @@ import { User } from './user.entity';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
+  @HttpCode(HttpStatus.OK)
   @Get('/:userId')
   async getById(@Param('userId') id: string): Promise<User> {
     return this.userService.findById(id);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
+  @HttpCode(HttpStatus.OK)
+  @Patch('/:userId')
+  async update(@Param('userId') id: string): Promise<User> {
+    return this.userService.findById(id);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @HttpCode(HttpStatus.OK)
   @Delete('/:userId')
-  async delete(@Param('userId') id: string): Promise<User> {
-    const user = this.userService.findById(id);
-    await this.userService.delete(id);
-    return user;
+  async delete(@Param('userId') id: string): Promise<void> {
+    return this.userService.delete(id);
   }
 }
