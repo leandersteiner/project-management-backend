@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Team } from '../team/team.entity';
 import { Exclude } from 'class-transformer';
+import { Organisation } from '../organisation/organisation.entity';
 
 @Entity()
 export class User {
@@ -27,6 +28,9 @@ export class User {
   @Column({ type: 'boolean', default: false })
   @Exclude()
   public isDeleted: boolean;
+
+  @OneToMany(() => Organisation, (organisation) => organisation.owner)
+  public organisations: Organisation[];
 
   @OneToMany(() => Team, (team) => team.owner)
   public teams: Team[];
