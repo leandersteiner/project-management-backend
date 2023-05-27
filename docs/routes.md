@@ -40,27 +40,27 @@
 
 ## Boards
 
-- GET /projects/:projectId/board
-- GET /projects/:projectId/board/columns
-- GET /projects/:projectId/board/columns/:columnId
-- POST /projects/:projectId/board/columns
-- PATCH /projects/:projectId/board/columns/:columnId
-- DELETE /projects/:projectId/board/columns/:columnId
+- [ ] GET /projects/:projectId/board
+- [ ] GET /projects/:projectId/board/columns
+- [ ] GET /projects/:projectId/board/columns/:columnId
+- [ ] POST /projects/:projectId/board/columns
+- [ ] PATCH /projects/:projectId/board/columns/:columnId
+- [ ] DELETE /projects/:projectId/board/columns/:columnId
 
 ## Tasks
 
-- GET /projects/:projectId/tasks
-- GET /projects/:projectId/tasks/:taskId
-- GET /projects/:projectId/board/columns/:columnId/tasks
-- POST /projects/:projectId/tasks
-- POST /projects/:projectId/board/columns/:columnId/tasks
-- PATCH /projects/:projectId/tasks/:taskId
-- DELETE /projects/:projectId/tasks/:taskId
+- [ ] GET /projects/:projectId/tasks
+- [ ] GET /projects/:projectId/tasks/:taskId
+- [ ] GET /projects/:projectId/board/columns/:columnId/tasks
+- [ ] POST /projects/:projectId/tasks
+- [ ] POST /projects/:projectId/board/columns/:columnId/tasks
+- [ ] PATCH /projects/:projectId/tasks/:taskId
+- [ ] DELETE /projects/:projectId/tasks/:taskId
 
 ## Sprints
 
-- GET /projects/:projectId/sprints
-- GET /projects/:projectId/sprints/:sprintId
-- POST /projects/:projectId/sprints
-- PATCH /projects/:projectId/sprints/:sprintId
-- DELETE /projects/:projectId/sprints/:sprintId
+- [ ] GET /projects/:projectId/sprints
+- [ ] GET /projects/:projectId/sprints/:sprintId
+- [ ] POST /projects/:projectId/sprints
+- [ ] PATCH /projects/:projectId/sprints/:sprintId
+- [ ] DELETE /projects/:projectId/sprints/:sprintId
