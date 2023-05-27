@@ -8,7 +8,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { Project } from '../project/project.entity';
-import { BoardColumn } from '../board-column/board-column.entity';
+import { BoardColumn } from '../board/board-column.entity';
 
 @Entity()
 export class TaskState {

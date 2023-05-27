@@ -9,9 +9,9 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { User } from '../user/user.entity';
-import { TaskState } from '../task-state/task-state.entity';
+import { TaskState } from './task-state.entity';
 import { Sprint } from '../sprint/sprint.entity';
-import { BoardColumn } from '../board-column/board-column.entity';
+import { BoardColumn } from '../board/board-column.entity';
 
 @Entity()
 export class Task {

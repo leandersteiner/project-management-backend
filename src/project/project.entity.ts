@@ -12,7 +12,7 @@ import {
 import { Team } from '../team/team.entity';
 import { User } from '../user/user.entity';
 import { Board } from '../board/board.entity';
-import { TaskState } from '../task-state/task-state.entity';
+import { TaskState } from '../task/task-state.entity';
 import { Sprint } from '../sprint/sprint.entity';
 
 @Entity()
