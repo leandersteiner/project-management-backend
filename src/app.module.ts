@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
-import { TaskStateModule } from './task-state/task-state.module';
 import { TeamModule } from './team/team.module';
 import { TaskModule } from './task/task.module';
 import { SprintModule } from './sprint/sprint.module';
 import { ProjectModule } from './project/project.module';
-import { BoardColumnModule } from './board-column/board-column.module';
 import { BoardModule } from './board/board.module';
 import { AuthModule } from './auth/auth.module';
 import { OrganisationModule } from './organisation/organisation.module';
@@ -21,12 +19,10 @@ const envFilePath = getEnvPath(`${__dirname}/common/envs`);
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     UserModule,
-    TaskStateModule,
     TeamModule,
     TaskModule,
     SprintModule,
     ProjectModule,
-    BoardColumnModule,
     BoardModule,
     AuthModule,
     OrganisationModule
