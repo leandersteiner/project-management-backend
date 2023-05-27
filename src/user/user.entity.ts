@@ -9,6 +9,7 @@ import {
 import { Team } from '../team/team.entity';
 import { Exclude } from 'class-transformer';
 import { Organisation } from '../organisation/organisation.entity';
+import { Project } from '../project/project.entity';
 
 @Entity()
 export class User {
@@ -34,6 +35,9 @@ export class User {
 
   @OneToMany(() => Team, (team) => team.owner)
   public teams: Team[];
+
+  @OneToMany(() => Project, (project) => project.owner)
+  public projects: Project[];
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
