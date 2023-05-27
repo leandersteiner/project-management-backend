@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { Organisation } from './organisation.entity';
 import { AddUserToOrganisationDto } from './dto/add-user-to-organisation.dto';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class OrganisationService {
@@ -14,52 +15,75 @@ export class OrganisationService {
     private readonly userService: UserService
   ) {}
 
-  findById = async (organisationId: string): Promise<Organisation> => {
-    return this.repository.findOneBy({ id: organisationId });
+  findById = async (user: User, orgId: string): Promise<Organisation> => {
+    const org = await this.repository.findOneBy({ id: orgId });
+    this.ensureAllowed(user, org, 'member');
+    return org;
   };
 
-  findAllForUser = async (userId: string): Promise<Organisation[]> => {
+  findAllForUser = async (user: User): Promise<Organisation[]> => {
     return [
-      ...(await this.findInvitedForUser(userId)),
-      ...(await this.findOwnedByUser(userId))
+      ...(await this.findInvitedForUser(user)),
+      ...(await this.findOwnedByUser(user))
     ];
   };
 
-  findOwnedByUser = async (userId: string): Promise<Organisation[]> => {
+  findOwnedByUser = async (user: User): Promise<Organisation[]> => {
     return this.repository.findBy({
       owner: {
-        id: userId
+        id: user.id
       }
     });
   };
 
-  findInvitedForUser = async (userId: string): Promise<Organisation[]> => {
+  findInvitedForUser = async (user: User): Promise<Organisation[]> => {
     return this.repository.findBy({
       members: {
-        id: userId
+        id: user.id
       }
     });
   };
 
   addUserToOrganisation = async (
+    user: User,
     addUserDto: AddUserToOrganisationDto
   ): Promise<Organisation> => {
     const organisation = await this.repository.findOne({
       where: { id: addUserDto.organisationId },
       relations: ['members']
     });
-    const user = await this.userService.findById(addUserDto.userId);
+    this.ensureAllowed(user, organisation, 'owner');
     const memberIds = organisation.members.map((member) => member.id);
-    if (memberIds.includes(user.id)) return organisation;
+    if (memberIds.includes(addUserDto.userId)) return organisation;
+    const userToAdd = await this.userService.findById(addUserDto.userId);
+    organisation.members.push(userToAdd);
     await this.repository.save(organisation);
     return organisation;
   };
 
-  create = async (createDto: CreateOrganisationDto): Promise<Organisation> => {
-    return this.repository.save(createDto);
+  create = async (
+    user: User,
+    createDto: CreateOrganisationDto
+  ): Promise<Organisation> => {
+    return this.repository.save({ ...createDto, owner: user });
   };
 
-  delete = async (id: string): Promise<void> => {
-    await this.repository.delete({ id: id });
+  delete = async (user: User, orgId: string): Promise<void> => {
+    const org = await this.findById(user, orgId);
+    this.ensureAllowed(user, org, 'owner');
+    await this.repository.delete(org);
+  };
+
+  private ensureAllowed = (
+    user: User,
+    org: Organisation,
+    role: 'owner' | 'member'
+  ): void => {
+    if (role === 'owner' && user.id !== org.owner.id) {
+      throw new UnauthorizedException();
+    }
+    if (role === 'member' && !org.members.includes(user)) {
+      throw new UnauthorizedException();
+    }
   };
 }
