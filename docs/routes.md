@@ -2,42 +2,41 @@
 
 ## Auth
 
-- POST /login
-- POST /register
+- [x] POST /login
+- [x] POST /register
 
 ## Users
 
-- GET /users/:userId
-- PATCH /users/:userId
-- DELETE /users/:userId
+- [x] GET /users/:userId
+- [x] PATCH /users/:userId
+- [x] DELETE /users/:userId
 
 ## Organisations
 
-- GET /orgs
-- GET /orgs/:orgId
-- POST /orgs
-- POST /orgs/:orgId - Add user to org
-- DELETE /orgs/:orgId
+- [x] GET /orgs
+- [x] GET /orgs/:orgId
+- [x] POST /orgs
+- [x] POST /orgs/:orgId - Add user to org
+- [x] DELETE /orgs/:orgId
 
 ## Teams
 
-- GET /orgs/:orgId/teams
-- GET /orgs/:orgId/teams/:teamId
-- POST /orgs/:orgId/teams
-- POST /orgs/:orgId/teams/:teamId - Add user to team
-- DELETE /orgs/:orgId/teams/:teamId
+- [x] GET /teams
+- [x] GET /orgs/:orgId/teams
+- [x] GET /orgs/:orgId/teams/:teamId
+- [x] POST /orgs/:orgId/teams
+- [x] POST /orgs/:orgId/teams/:teamId - Add user to team
+- [x] DELETE /orgs/:orgId/teams/:teamId
 
 ## Projects
 
-- GET /projects
-- GET /projects/:projectId
-- GET /orgs/:orgId/projects
-- GET /orgs/:orgId/projects/:projectId
-- POST /projects
-- POST /orgs/:orgId/projects
-- POST /orgs/:orgId - Add user to org
-- DELETE /orgs/:orgId
-- DELETE /orgs/:orgId/projects/:projectId
+- [x] GET /projects
+- [x] GET /projects/:projectId
+- [x] GET /orgs/:orgId/projects
+- [x] GET /orgs/:orgId/teams/:teamId/projects
+- [x] POST /orgs/:orgId/teams/:teamId/projects
+- [x] POST /orgs/:orgId/teams/:teamId/projects/:projectId - Add user to org
+- [x] DELETE /orgs/:orgId/teams/:teamId/projects/:projectId
 
 ## Boards
 
