@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
-import { TaskState } from '../task-state/task-state.entity';
+import { TaskState } from '../task/task-state.entity';
 import { Task } from '../task/task.entity';
-import { Board } from '../board/board.entity';
+import { Board } from './board.entity';
 
 @Entity()
 export class BoardColumn {

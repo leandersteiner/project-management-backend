@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { Board } from './board.entity';
-import { BoardColumn } from '../board-column/board-column.entity';
+import { BoardColumn } from './board-column.entity';
 
 @Controller('projects/:projectId/board')
 export class BoardController {

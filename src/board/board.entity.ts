@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
-import { BoardColumn } from '../board-column/board-column.entity';
+import { BoardColumn } from './board-column.entity';
 import { Project } from '../project/project.entity';
 
 @Entity()
