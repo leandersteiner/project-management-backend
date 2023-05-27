@@ -26,12 +26,15 @@ export class Project {
   @Column({ type: 'boolean' })
   public private: boolean;
 
+  @Column()
+  public owner: User;
+
   @ManyToOne(() => Team, (team) => team.projects)
   public team: Team;
 
   @ManyToMany(() => User)
   @JoinTable()
-  public invitedMembers: User[];
+  public members: User[];
 
   @OneToMany(() => Board, (board) => board.project)
   public boards: Board[];

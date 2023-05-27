@@ -4,57 +4,89 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Post
+  Param,
+  Post,
+  UseGuards
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { Project } from './project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { ReqUser } from '../common/helper/user.decorator';
+import { User } from '../user/user.entity';
+import { AddUserToProjectDto } from './dto/add-user-to-project.dto';
 
+@UseGuards(AuthGuard)
 @Controller()
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get('/projects')
-  async getAllForUser(): Promise<Project[]> {
-    return this.projectService.findAllForUser('userid');
+  async getAllForUser(@ReqUser() user: User): Promise<Project[]> {
+    return this.projectService.findAllForUser(user);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('/projects/:projectId')
-  async getById(): Promise<Project> {
-    return this.projectService.findById('projectId');
+  async getById(
+    @ReqUser() user: User,
+    @Param('projectId') projectId: string
+  ): Promise<Project> {
+    return this.projectService.findById(user, projectId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('orgs/:orgId/projects')
-  async getById(): Promise<Project[]> {
-    return this.projectService.findById('projectId');
+  async getAllInOrg(
+    @ReqUser() user: User,
+    @Param('orgId') orgId: string
+  ): Promise<Project[]> {
+    return this.projectService.findAllForUserInOrg(user, orgId);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('orgs/:orgId/projects/:projectId')
-  async getById(): Promise<Project> {
-    return this.projectService.findById('projectId');
+  @Get('orgs/:orgId/teams/:teamId/projects')
+  async getAllInTeam(
+    @ReqUser() user: User,
+    @Param('teamId') teamId: string
+  ): Promise<Project[]> {
+    return this.projectService.findAllForUserInTeam(user, teamId);
   }
 
   @HttpCode(HttpStatus.CREATED)
-  @Post('orgs/:orgId/projects/:projectId')
-  async create(@Body() createDto: CreateProjectDto): Promise<Project> {
-    return this.projectService.create(createDto);
-  }
-
-  @HttpCode(HttpStatus.CREATED)
-  @Post('orgs/:orgId/projects/:projectId')
-  async create(@Body() createDto: CreateProjectDto): Promise<Project> {
-    return this.projectService.create(createDto);
-  }
-
-  @HttpCode(HttpStatus.CREATED)
-  @Post('orgs/:orgId/projects/:projectId')
-  async addUserToProject(
-    @Body() addUserDto: AdduserToProjectDto
+  @Post('orgs/:orgId/teams/:teamId/projects')
+  async create(
+    @ReqUser() user: User,
+    @Param('orgId') orgId: string,
+    @Param('teamId') teamId: string,
+    @Body() createDto: CreateProjectDto
   ): Promise<Project> {
-    return this.projectService.addUser(addUserDto);
+    return this.projectService.create(user, orgId, teamId, createDto);
+  }
+
+  @HttpCode(HttpStatus.CREATED)
+  @Post('orgs/:orgId/teams/:teamId/projects/:projectId')
+  async addUserToProject(
+    @ReqUser() user: User,
+    @Param('orgId') orgId: string,
+    @Param('teamId') teamId: string,
+    @Param('projectId') projectId: string,
+    @Body() addUserDto: AddUserToProjectDto
+  ): Promise<Project> {
+    return this.projectService.addUserToProject(
+      user,
+      addUserDto.userId,
+      projectId
+    );
+  }
+
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post('orgs/:orgId/teams/:teamId/projects/:projectId')
+  async delete(
+    @ReqUser() user: User,
+    @Param('projectId') projectId: string
+  ): Promise<void> {
+    return this.projectService.delete(user, projectId);
   }
 }
