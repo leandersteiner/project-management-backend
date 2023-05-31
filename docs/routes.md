@@ -40,12 +40,12 @@
 
 ## Boards
 
-- [ ] GET /projects/:projectId/board
-- [ ] GET /projects/:projectId/board/columns
-- [ ] GET /projects/:projectId/board/columns/:columnId
-- [ ] POST /projects/:projectId/board/columns
-- [ ] PATCH /projects/:projectId/board/columns/:columnId
-- [ ] DELETE /projects/:projectId/board/columns/:columnId
+- [x] GET /projects/:projectId/board
+- [x] GET /projects/:projectId/board/columns
+- [x] GET /projects/:projectId/board/columns/:columnId
+- [x] POST /projects/:projectId/board/columns
+- [x] PATCH /projects/:projectId/board/columns/:columnId
+- [x] DELETE /projects/:projectId/board/columns/:columnId
 
 ## Tasks
 
