@@ -53,8 +53,11 @@
 - [x] GET /projects/:projectId/tasks/:taskId
 - [x] GET /projects/:projectId/board/columns/:columnId/tasks
 - [x] POST /projects/:projectId/board/columns/:columnId/tasks
+- [x] POST /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks
 - [x] PATCH /projects/:projectId/tasks/:taskId
+- [x] PATCH /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks/:subtaskId
 - [x] DELETE /projects/:projectId/tasks/:taskId
+- [x] Delete /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks/:subtaskId
 
 ## Sprints
 
