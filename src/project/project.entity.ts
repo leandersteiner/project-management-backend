@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
@@ -26,7 +28,8 @@ export class Project {
   @Column({ type: 'boolean' })
   public private: boolean;
 
-  @Column()
+  @OneToOne(() => User)
+  @JoinColumn()
   public owner: User;
 
   @ManyToOne(() => Team, (team) => team.projects)
