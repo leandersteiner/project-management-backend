@@ -13,10 +13,6 @@ export class TaskService {
     private repository: Repository<Task>
   ) {}
 
-  findRel = async (id: string): Promise<Task> => {
-    return this.repository.findOneBy({ id: id });
-  };
-
   allForProject = async (projectId: string): Promise<Task[]> => {
     return this.repository.findBy({
       boardColumn: { board: { project: { id: projectId } } }

@@ -17,11 +17,18 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { ReqUser } from '../common/helper/user.decorator';
 import { User } from '../user/user.entity';
+import { SubtaskService } from './subtask.service';
+import { CreateSubtaskDto } from './dto/create-subtask.dto';
+import { Subtask } from './subtask.entity';
+import { UpdateSubtaskDto } from './dto/update-subtask.dto';
 
 @UseGuards(AuthGuard)
 @Controller('projects/:projectId')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly subtaskService: SubtaskService
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Get('/tasks')
@@ -51,6 +58,16 @@ export class TaskController {
     return this.taskService.createInColumn(user, columnId, createDto);
   }
 
+  @HttpCode(HttpStatus.CREATED)
+  @Post('/board/columns/:columnId/tasks/:taskId/subtasks')
+  async createSubtask(
+    @ReqUser() user: User,
+    @Param('taskId') taskId: string,
+    @Body() createDto: CreateSubtaskDto
+  ): Promise<Subtask> {
+    return this.subtaskService.create(user, taskId, createDto);
+  }
+
   @HttpCode(HttpStatus.OK)
   @Patch('/tasks/:taskId')
   async update(
@@ -60,9 +77,24 @@ export class TaskController {
     return this.taskService.update(taskId, updateDto);
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Patch('/tasks/:taskId/subtasks/:subtaskId')
+  async updateSubtask(
+    @Param('subtaskId') subtaskId: string,
+    @Body() updateDto: UpdateSubtaskDto
+  ): Promise<Subtask> {
+    return this.subtaskService.update(subtaskId, updateDto);
+  }
+
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/tasks/:taskId')
   async delete(@Param('taskId') taskId: string): Promise<void> {
     return this.taskService.delete(taskId);
+  }
+
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/tasks/:taskId/subtasks/:subtaskId')
+  async deleteSubtask(@Param('subtaskId') subtaskId: string): Promise<void> {
+    return this.taskService.delete(subtaskId);
   }
 }

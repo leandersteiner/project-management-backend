@@ -44,7 +44,9 @@ export class Task {
   @JoinColumn()
   public creator: User;
 
-  @OneToMany(() => Subtask, (subtask) => subtask.task)
+  @OneToMany(() => Subtask, (subtask) => subtask.task, {
+    eager: true
+  })
   public subtasks: Subtask[];
 
   @ManyToOne(() => Sprint, (sprint) => sprint.tasks)
