@@ -24,9 +24,6 @@ export class CreateTaskDto {
   public priority: number;
 
   @IsUUID()
-  public assigneeId: string;
-
-  @IsUUID()
   public taskStateId: string;
 
   @IsUUID()

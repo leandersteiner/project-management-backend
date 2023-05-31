@@ -38,6 +38,10 @@ export class Task {
   @JoinColumn()
   public state: TaskState;
 
+  @OneToOne(() => User)
+  @JoinColumn()
+  public creator: User;
+
   @ManyToOne(() => Sprint, (sprint) => sprint.tasks)
   public sprint: Sprint;
 
