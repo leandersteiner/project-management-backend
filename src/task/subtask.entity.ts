@@ -2,12 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+import { Task } from './task.entity';
 
 @Entity()
-export class Task {
+export class Subtask {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -16,6 +18,9 @@ export class Task {
 
   @Column({ type: 'boolean', default: false })
   public done: boolean;
+
+  @ManyToOne(() => Task, (task) => task.subtasks)
+  public task: Task;
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;

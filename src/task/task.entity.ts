@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -12,6 +13,7 @@ import { User } from '../user/user.entity';
 import { TaskState } from './task-state.entity';
 import { Sprint } from '../sprint/sprint.entity';
 import { BoardColumn } from '../board/board-column.entity';
+import { Subtask } from './subtask.entity';
 
 @Entity()
 export class Task {
@@ -41,6 +43,9 @@ export class Task {
   @OneToOne(() => User)
   @JoinColumn()
   public creator: User;
+
+  @OneToMany(() => Subtask, (subtask) => subtask.task)
+  public subtasks: Subtask[];
 
   @ManyToOne(() => Sprint, (sprint) => sprint.tasks)
   public sprint: Sprint;
