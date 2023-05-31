@@ -20,31 +20,37 @@ export class SprintController {
 
   @HttpCode(HttpStatus.OK)
   @Get('/')
-  async findAll(): Promise<Sprint[]> {
-    return this.sprintService.findAll();
+  async findAll(@Param('projectId') projectId: string): Promise<Sprint[]> {
+    return this.sprintService.findAllForProject(projectId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('/:sprintId')
   async findById(@Param('sprintId') sprintId: string): Promise<Sprint> {
-    return this.sprintService.findById(sprintId);
+    return this.sprintService.findOne(sprintId);
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post('/')
-  async create(@Body() createDto: CreateSprintDto): Promise<Sprint> {
-    return this.sprintService.create(createDto);
+  async create(
+    @Param('projectId') projectId: string,
+    @Body() createDto: CreateSprintDto
+  ): Promise<Sprint> {
+    return this.sprintService.create(projectId, createDto);
   }
 
   @HttpCode(HttpStatus.OK)
   @Patch('/:sprintId')
-  async update(@Body() updateDto: UpdateSprintDto): Promise<Sprint> {
-    return this.sprintService.update(updateDto);
+  async update(
+    @Param('sprintId') sprintId: string,
+    @Body() updateDto: UpdateSprintDto
+  ): Promise<Sprint> {
+    return this.sprintService.update(sprintId, updateDto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/:sprintId')
-  async delete(@Param('sprintId') sprintId: string): Promise<Sprint> {
+  async delete(@Param('sprintId') sprintId: string): Promise<void> {
     return this.sprintService.delete(sprintId);
   }
 }
