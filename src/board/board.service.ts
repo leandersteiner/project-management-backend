@@ -9,4 +9,8 @@ export class BoardService {
     @InjectRepository(Board)
     private readonly repository: Repository<Board>
   ) {}
+
+  getForProject = async (projectId: string) => {
+    return this.repository.findOneBy({ project: { id: projectId } });
+  };
 }
