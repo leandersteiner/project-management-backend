@@ -61,8 +61,8 @@
 
 ## Sprints
 
-- [ ] GET /projects/:projectId/sprints
-- [ ] GET /projects/:projectId/sprints/:sprintId
-- [ ] POST /projects/:projectId/sprints
-- [ ] PATCH /projects/:projectId/sprints/:sprintId
-- [ ] DELETE /projects/:projectId/sprints/:sprintId
+- [x] GET /projects/:projectId/sprints
+- [x] GET /projects/:projectId/sprints/:sprintId
+- [x] POST /projects/:projectId/sprints
+- [x] PATCH /projects/:projectId/sprints/:sprintId
+- [x] DELETE /projects/:projectId/sprints/:sprintId
