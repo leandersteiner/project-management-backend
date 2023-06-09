@@ -28,8 +28,7 @@ export class Project {
   @Column({ type: 'boolean' })
   public private: boolean;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User)
   public owner: User;
 
   @ManyToOne(() => Team, (team) => team.projects)
