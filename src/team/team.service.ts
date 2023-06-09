@@ -131,11 +131,15 @@ export class TeamService {
     ) {
       throw new UnauthorizedException();
     }
-    if (
-      role === 'member' &&
-      (!team.members.includes(user) || team.owner.id === user.id)
-    ) {
-      throw new UnauthorizedException();
+    if (role === 'member') {
+      let result = true;
+      if (!team.members.includes(user)) {
+        result = false;
+      }
+      if (team.owner.id === user.id) {
+        result = true;
+      }
+      if (result === false) throw new UnauthorizedException();
     }
   };
 }
