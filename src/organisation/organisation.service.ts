@@ -81,8 +81,15 @@ export class OrganisationService {
     if (role === 'owner' && user.id !== org.owner.id) {
       throw new UnauthorizedException();
     }
-    if (role === 'member' && !org.members.includes(user)) {
-      throw new UnauthorizedException();
+    if (role === 'member') {
+      let result = true;
+      if (!org.members.includes(user)) {
+        result = false;
+      }
+      if (org.owner.id === user.id) {
+        result = true;
+      }
+      if (result === false) throw new UnauthorizedException();
     }
   };
 }

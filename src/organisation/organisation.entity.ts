@@ -20,7 +20,7 @@ export class Organisation {
   @Column({ type: 'varchar', length: 120 })
   public name: string;
 
-  @ManyToOne(() => User, (user) => user.teams)
+  @ManyToOne(() => User, (user) => user.teams, { eager: true })
   public owner: User;
 
   @OneToMany(() => Team, (team) => team.organisation)

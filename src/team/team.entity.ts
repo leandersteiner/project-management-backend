@@ -25,7 +25,7 @@ export class Team {
   @Column({ type: 'boolean', default: false })
   public private: boolean;
 
-  @ManyToOne(() => User, (user) => user.teams)
+  @ManyToOne(() => User, (user) => user.teams, { eager: true })
   public owner: User;
 
   @ManyToMany(() => User, { eager: true })

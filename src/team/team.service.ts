@@ -131,7 +131,10 @@ export class TeamService {
     ) {
       throw new UnauthorizedException();
     }
-    if (role === 'member' && !team.members.includes(user)) {
+    if (
+      role === 'member' &&
+      (!team.members.includes(user) || team.owner.id === user.id)
+    ) {
       throw new UnauthorizedException();
     }
   };
