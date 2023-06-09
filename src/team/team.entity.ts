@@ -28,7 +28,7 @@ export class Team {
   @ManyToOne(() => User, (user) => user.teams)
   public owner: User;
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, { eager: true })
   @JoinTable()
   public members: User[];
 

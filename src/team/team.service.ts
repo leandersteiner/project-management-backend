@@ -92,10 +92,7 @@ export class TeamService {
     userId: string,
     teamId: string
   ): Promise<Team> => {
-    const team = await this.repository.findOne({
-      where: { id: teamId },
-      relations: ['members']
-    });
+    const team = await this.repository.findOneBy({ id: teamId });
     this.ensureAllowed(user, team, 'owner');
     const memberIds = team.members.map((member) => member.id);
     if (memberIds.includes(user.id)) return team;
