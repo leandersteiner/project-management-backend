@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -44,6 +45,9 @@ export class UserService {
     updateDto: UpdateUserDto
   ): Promise<User> => {
     this.ensureAllowed(user.id, userId);
+    if (updateDto.password) {
+      updateDto.password = await bcrypt.hash(updateDto.password, 10);
+    }
     user = { ...user, ...updateDto };
     return this.repository.save(user);
   };
