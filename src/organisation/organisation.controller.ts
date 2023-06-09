@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,7 +8,8 @@ import {
   HttpStatus,
   Param,
   Post,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
 import { OrganisationService } from './organisation.service';
 import { Organisation } from './organisation.entity';
@@ -17,6 +19,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { ReqUser } from '../common/helper/user.decorator';
 import { User } from '../user/user.entity';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('orgs')
 export class OrganisationController {

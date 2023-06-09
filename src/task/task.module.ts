@@ -8,9 +8,10 @@ import { TaskState } from './task-state.entity';
 import { Subtask } from './subtask.entity';
 import { TaskStateService } from './task-state.service';
 import { SubtaskService } from './subtask.service';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task, TaskState, Subtask])],
+  imports: [TypeOrmModule.forFeature([Task, TaskState, Subtask]), UserModule],
   controllers: [TaskController, TaskStateController],
   providers: [TaskService, TaskStateService, SubtaskService]
 })

@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,7 +8,8 @@ import {
   HttpStatus,
   Param,
   Post,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { Team } from './team.entity';
@@ -17,6 +19,7 @@ import { AddUserToTeamDto } from './dto/add-user-to-team.dto';
 import { ReqUser } from '../common/helper/user.decorator';
 import { User } from '../user/user.entity';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller()
 export class TeamController {
