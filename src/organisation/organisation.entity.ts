@@ -26,7 +26,7 @@ export class Organisation {
   @OneToMany(() => Team, (team) => team.organisation)
   public teams: Team[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, { eager: true })
   @JoinTable()
   public members: User[];
 

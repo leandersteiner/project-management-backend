@@ -48,9 +48,8 @@ export class OrganisationService {
     user: User,
     addUserDto: AddUserToOrganisationDto
   ): Promise<Organisation> => {
-    const organisation = await this.repository.findOne({
-      where: { id: addUserDto.organisationId },
-      relations: ['members']
+    const organisation = await this.repository.findOneBy({
+      id: addUserDto.organisationId
     });
     this.ensureAllowed(user, organisation, 'owner');
     const memberIds = organisation.members.map((member) => member.id);
