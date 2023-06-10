@@ -23,7 +23,9 @@ export class Board {
   @JoinColumn()
   public project: Project;
 
-  @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.board)
+  @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.board, {
+    eager: true
+  })
   public columns: BoardColumn[];
 
   @CreateDateColumn({ type: 'timestamp' })
