@@ -13,6 +13,7 @@ import { UserModule } from 'src/user/user.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Task, TaskState, Subtask]), UserModule],
   controllers: [TaskController, TaskStateController],
-  providers: [TaskService, TaskStateService, SubtaskService]
+  providers: [TaskService, TaskStateService, SubtaskService],
+  exports: [TaskStateService]
 })
 export class TaskModule {}

@@ -14,6 +14,7 @@ import { TaskState } from './task-state.entity';
 import { Sprint } from '../sprint/sprint.entity';
 import { BoardColumn } from '../board/board-column.entity';
 import { Subtask } from './subtask.entity';
+import { TaskComment } from './task-comment.entity';
 
 @Entity()
 export class Task {
@@ -40,14 +41,18 @@ export class Task {
   @JoinColumn()
   public state: TaskState;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User)
   public creator: User;
 
   @OneToMany(() => Subtask, (subtask) => subtask.task, {
     eager: true
   })
   public subtasks: Subtask[];
+
+  @OneToMany(() => TaskComment, (taskComment) => taskComment.task, {
+    eager: true
+  })
+  public comments: TaskComment[];
 
   @ManyToOne(() => Sprint, (sprint) => sprint.tasks)
   public sprint: Sprint;
