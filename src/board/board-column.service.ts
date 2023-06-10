@@ -3,15 +3,17 @@ import { BoardColumn } from './board-column.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateBoardColumnDto } from './dto/create-board-column.dto';
-import { BoardService } from './board.service';
 import { UpdateBoardColumnDto } from './dto/update-board-column.dto';
+import { TaskState } from '../task/task-state.entity';
+import { Board } from './board.entity';
 
 @Injectable()
 export class BoardColumnService {
   constructor(
     @InjectRepository(BoardColumn)
     private readonly repository: Repository<BoardColumn>,
-    private readonly boardService: BoardService
+    @InjectRepository(Board)
+    private readonly boardRepository: Repository<Board>
   ) {}
 
   getAllForProject = async (projectId: string): Promise<BoardColumn[]> => {
@@ -32,8 +34,44 @@ export class BoardColumnService {
     projectId: string,
     createDto: CreateBoardColumnDto
   ): Promise<BoardColumn> => {
-    const board = await this.boardService.getForProject(projectId);
+    const board = await this.boardRepository.findOneBy({
+      project: { id: projectId }
+    });
     return this.repository.save({ ...createDto, board });
+  };
+
+  createDefaultInProject = async (
+    projectId: string,
+    taskStates: {
+      inProgress: TaskState;
+      inReview: TaskState;
+      done: TaskState;
+    },
+    board: Board
+  ): Promise<BoardColumn[]> => {
+    const boardColumns: BoardColumn[] = [];
+    boardColumns.push(
+      await this.repository.save({
+        title: 'In progress',
+        state: taskStates.inProgress,
+        board: board
+      })
+    );
+    boardColumns.push(
+      await this.repository.save({
+        title: 'In review',
+        state: taskStates.inReview,
+        board: board
+      })
+    );
+    boardColumns.push(
+      await this.repository.save({
+        title: 'Done',
+        state: taskStates.done,
+        board: board
+      })
+    );
+    return boardColumns;
   };
 
   update = async (

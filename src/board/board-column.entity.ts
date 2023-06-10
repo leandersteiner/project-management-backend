@@ -19,10 +19,12 @@ export class BoardColumn {
   @Column({ type: 'varchar', length: 120 })
   public title: string;
 
-  @ManyToOne(() => TaskState, (taskState) => taskState.boardColumns)
+  @ManyToOne(() => TaskState, (taskState) => taskState.boardColumns, {
+    eager: true
+  })
   public state: TaskState;
 
-  @OneToMany(() => Task, (task) => task.boardColumn)
+  @OneToMany(() => Task, (task) => task.boardColumn, { eager: true })
   public tasks: Task[];
 
   @ManyToOne(() => Board, (board) => board.columns)
