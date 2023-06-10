@@ -6,6 +6,7 @@ import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { TeamService } from '../team/team.service';
+import { BoardService } from '../board/board.service';
 
 @Injectable()
 export class ProjectService {
@@ -13,7 +14,8 @@ export class ProjectService {
     @InjectRepository(Project)
     private readonly repository: Repository<Project>,
     private readonly userService: UserService,
-    private readonly teamService: TeamService
+    private readonly teamService: TeamService,
+    private readonly boardService: BoardService
   ) {}
 
   findById = async (user: User, projectId: string): Promise<Project> => {
@@ -149,7 +151,13 @@ export class ProjectService {
     createDto: CreateProjectDto
   ): Promise<Project> => {
     const team = await this.teamService.findById(user, orgId, teamId);
-    return this.repository.save({ ...createDto, owner: user, team: team });
+    const project = await this.repository.save({
+      ...createDto,
+      owner: user,
+      team: team
+    });
+    await this.boardService.createForProject(project.id);
+    return project;
   };
 
   delete = async (user: User, projectId: string): Promise<void> => {
