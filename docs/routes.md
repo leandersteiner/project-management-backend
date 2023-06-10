@@ -51,12 +51,15 @@
 
 - [x] GET /projects/:projectId/tasks
 - [x] GET /projects/:projectId/tasks/:taskId
+- [x] GET /projects/:projectId/tasks/states
 - [x] GET /projects/:projectId/board/columns/:columnId/tasks
+- [x] POST /projects/:projectId/tasks/states
 - [x] POST /projects/:projectId/board/columns/:columnId/tasks
 - [x] POST /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks
 - [x] PATCH /projects/:projectId/tasks/:taskId
 - [x] PATCH /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks/:subtaskId
 - [x] DELETE /projects/:projectId/tasks/:taskId
+- [x] DELETE /projects/:projectId/tasks/states/:stateId
 - [x] Delete /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks/:subtaskId
 
 ## Sprints
