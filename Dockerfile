@@ -1,7 +1,6 @@
 # Build
 FROM node:19-alpine as builder
-RUN mkdir -p /home/service
-WORKDIR /home/service
+WORKDIR /service
 COPY .. .
 RUN npm install
 RUN npm run build
@@ -9,11 +8,12 @@ RUN npm run build
 # Run
 FROM alpine:latest
 RUN apk update && apk add nodejs npm && rm -rf /var/cache/apk/*
-RUN mkdir -p /home/service
-WORKDIR /home/service
+WORKDIR /service
 COPY package.json .
-WORKDIR /home/service
-COPY --from=builder /home/service/dist ./dist
+COPY --from=builder /service/dist ./dist
+COPY client ./client
 RUN npm install --omit=dev
+EXPOSE 8081
+ENV NODE_ENV=prod
 
 CMD [ "npm", "run", "start:prod" ]
