@@ -19,6 +19,28 @@ export class TaskStateService {
     return this.repository.save(createDto);
   };
 
+  createDefaultForProject = async (
+    projectId: string
+  ): Promise<{
+    inProgress: TaskState;
+    inReview: TaskState;
+    done: TaskState;
+  }> => {
+    const inProgress = await this.repository.save({
+      name: 'In progress',
+      project: { id: projectId }
+    });
+    const inReview = await this.repository.save({
+      name: 'In review',
+      project: { id: projectId }
+    });
+    const done = await this.repository.save({
+      name: 'Done',
+      project: { id: projectId }
+    });
+    return { inProgress, inReview, done };
+  };
+
   delete = async (id: string): Promise<void> => {
     await this.repository.delete({ id: id });
   };
