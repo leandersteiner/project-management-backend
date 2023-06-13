@@ -132,10 +132,7 @@ export class ProjectService {
     userId: string,
     projectId: string
   ): Promise<Project> => {
-    const project = await this.repository.findOne({
-      where: { id: projectId },
-      relations: ['members']
-    });
+    const project = await this.repository.findOneBy({ id: projectId },);
     this.ensureAllowed(user, project, 'owner');
     const memberIds = project.members.map((member) => member.id);
     if (memberIds.includes(user.id)) return project;
@@ -161,8 +158,8 @@ export class ProjectService {
   };
 
   delete = async (user: User, projectId: string): Promise<void> => {
-    const team = await this.findById(user, projectId);
-    this.ensureAllowed(user, team, 'owner');
+    const project = await this.findById(user, projectId);
+    this.ensureAllowed(user, project, 'owner');
     await this.repository.delete({ id: projectId });
   };
 
@@ -171,11 +168,21 @@ export class ProjectService {
     project: Project,
     role: 'owner' | 'member'
   ): void => {
-    if (role === 'owner' && user.id !== project.owner.id) {
+    if (
+      role === 'owner' &&
+      (user.id !== project.owner.id || project.team.owner.id !== user.id || project.team.organisation.owner.id !== user.id)
+    ) {
       throw new UnauthorizedException();
     }
-    if (role === 'member' && !project.members.includes(user)) {
-      throw new UnauthorizedException();
+    if (role === 'member') {
+      let result = true;
+      if (!project.members.includes(user) || !project.team.members.includes(user) || !project.team.organisation.members.includes(user)) {
+        result = false;
+      }
+      if (project.owner.id === user.id) {
+        result = true;
+      }
+      if (result === false) throw new UnauthorizedException();
     }
   };
 }
