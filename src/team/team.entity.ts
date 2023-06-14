@@ -35,7 +35,7 @@ export class Team {
   @OneToMany(() => Project, (project) => project.team)
   public projects: Project[];
 
-  @ManyToOne(() => Organisation, (organisation) => organisation.teams)
+  @ManyToOne(() => Organisation, (organisation) => organisation.teams, {eager: true})
   public organisation: Organisation;
 
   @CreateDateColumn({ type: 'timestamp' })

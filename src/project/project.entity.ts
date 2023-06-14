@@ -29,7 +29,7 @@ export class Project {
   @ManyToOne(() => User)
   public owner: User;
 
-  @ManyToOne(() => Team, (team) => team.projects)
+  @ManyToOne(() => Team, (team) => team.projects, {eager: true})
   public team: Team;
 
   @ManyToMany(() => User)
