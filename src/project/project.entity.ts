@@ -32,7 +32,7 @@ export class Project {
   @ManyToOne(() => Team, (team) => team.projects, {eager: true})
   public team: Team;
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, {eager: true})
   @JoinTable()
   public members: User[];
 
