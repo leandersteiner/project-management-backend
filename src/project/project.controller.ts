@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -82,7 +83,7 @@ export class ProjectController {
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Post('orgs/:orgId/teams/:teamId/projects/:projectId')
+  @Delete('orgs/:orgId/teams/:teamId/projects/:projectId')
   async delete(
     @ReqUser() user: User,
     @Param('projectId') projectId: string
