@@ -26,13 +26,13 @@ export class Project {
   @Column({ type: 'boolean' })
   public private: boolean;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   public owner: User;
 
-  @ManyToOne(() => Team, (team) => team.projects, {eager: true})
+  @ManyToOne(() => Team, (team) => team.projects, { eager: true })
   public team: Team;
 
-  @ManyToMany(() => User, {eager: true})
+  @ManyToMany(() => User, { eager: true })
   @JoinTable()
   public members: User[];
 
