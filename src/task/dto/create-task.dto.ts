@@ -23,8 +23,15 @@ export class CreateTaskDto {
   @IsPositive()
   public priority: number;
 
+  @IsNumber()
+  @IsPositive()
+  public position: number;
+
   @IsUUID()
   public taskStateId: string;
+
+  @IsUUID()
+  public assigneeId: string;
 
   @IsUUID()
   public sprintId: string;

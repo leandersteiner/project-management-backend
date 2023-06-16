@@ -54,21 +54,24 @@ export class BoardColumnService {
       await this.repository.save({
         title: 'In progress',
         state: taskStates.inProgress,
-        board: board
+        board: board,
+        position: 1
       })
     );
     boardColumns.push(
       await this.repository.save({
         title: 'In review',
         state: taskStates.inReview,
-        board: board
+        board: board,
+        position: 2
       })
     );
     boardColumns.push(
       await this.repository.save({
         title: 'Done',
         state: taskStates.done,
-        board: board
+        board: board,
+        position: 3
       })
     );
     return boardColumns;

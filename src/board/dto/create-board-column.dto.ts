@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  IsUUID
+} from 'class-validator';
 
 export class CreateBoardColumnDto {
   @IsString()
@@ -8,4 +14,8 @@ export class CreateBoardColumnDto {
   @IsUUID()
   @IsNotEmpty()
   public taskStateId: string;
+
+  @IsNumber()
+  @IsPositive()
+  public position: number;
 }

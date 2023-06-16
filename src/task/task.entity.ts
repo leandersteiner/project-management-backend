@@ -33,6 +33,9 @@ export class Task {
   @Column({ type: 'int', default: 1 })
   public priority: number;
 
+  @Column({ type: 'int' })
+  public position: number;
+
   @OneToOne(() => User)
   @JoinColumn()
   public assignee: User;

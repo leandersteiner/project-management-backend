@@ -1,6 +1,7 @@
 import {
   IsBoolean,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   IsUUID
@@ -20,12 +21,19 @@ export class UpdateTaskDto {
   @IsPositive()
   public priority: number;
 
+  @IsNumber()
+  @IsPositive()
+  public position: number;
+
   @IsUUID()
+  @IsOptional()
   public assigneeId: string;
 
   @IsUUID()
+  @IsOptional()
   public taskStateId: string;
 
   @IsUUID()
+  @IsOptional()
   public sprintId: string;
 }

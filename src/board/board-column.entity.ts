@@ -19,6 +19,9 @@ export class BoardColumn {
   @Column({ type: 'varchar', length: 120 })
   public title: string;
 
+  @Column({ type: 'int' })
+  public position: number;
+
   @ManyToOne(() => TaskState, (taskState) => taskState.boardColumns, {
     eager: true
   })
