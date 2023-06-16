@@ -48,11 +48,8 @@ export class TaskService {
   };
 
   update = async (taskId: string, updateDto: UpdateTaskDto): Promise<Task> => {
-    console.log(updateDto);
     await this.repository.update(taskId, updateDto);
-    const task = await this.repository.findOneBy({ id: taskId });
-    console.log(task);
-    return task;
+    return await this.repository.findOneBy({ id: taskId });
   };
 
   delete = async (taskId: string): Promise<void> => {

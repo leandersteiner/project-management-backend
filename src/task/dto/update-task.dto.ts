@@ -35,5 +35,9 @@ export class UpdateTaskDto {
 
   @IsUUID()
   @IsOptional()
+  public boardColumnId: string;
+
+  @IsUUID()
+  @IsOptional()
   public sprintId: string;
 }

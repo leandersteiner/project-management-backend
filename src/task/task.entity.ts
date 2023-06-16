@@ -63,6 +63,9 @@ export class Task {
   @ManyToOne(() => BoardColumn, (boardColumn) => boardColumn.tasks)
   public boardColumn: BoardColumn;
 
+  @Column()
+  public boardColumnId: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
 
