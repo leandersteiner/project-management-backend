@@ -24,6 +24,13 @@ export class UserController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
+  @Get()
+  async getAll(): Promise<any> {
+    return this.userService.findAll();
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @HttpCode(HttpStatus.OK)
   @Get('/:userId')
   async getById(
     @ReqUser() user: User,

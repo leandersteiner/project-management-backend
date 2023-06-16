@@ -35,6 +35,12 @@ export class UserService {
     });
   };
 
+  findAll = async (): Promise<Pick<User, 'id' | 'username' | 'email'>[]> => {
+    return this.repository.find({
+      select: { id: true, username: true, email: true }
+    });
+  };
+
   create = async (createDto: CreateUserDto): Promise<User> => {
     return this.repository.save(createDto);
   };
