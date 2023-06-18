@@ -2,6 +2,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   IsUUID
@@ -13,7 +14,6 @@ export class CreateTaskDto {
   public name: string;
 
   @IsString()
-  @IsNotEmpty()
   public description: string;
 
   @IsBoolean()
@@ -21,18 +21,25 @@ export class CreateTaskDto {
 
   @IsNumber()
   @IsPositive()
-  public priority: number;
+  public position: number;
 
   @IsNumber()
   @IsPositive()
-  public position: number;
+  @IsOptional()
+  public priority: number;
 
   @IsUUID()
+  @IsOptional()
   public taskStateId: string;
 
   @IsUUID()
+  @IsOptional()
   public assigneeId: string;
 
   @IsUUID()
+  public projectId: string;
+
+  @IsUUID()
+  @IsOptional()
   public sprintId: string;
 }

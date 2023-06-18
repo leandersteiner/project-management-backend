@@ -37,6 +37,12 @@ export class TaskController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Get('/backlog/tasks')
+  async findBacklog(@Param('/tasks') projectId: string): Promise<Task[]> {
+    return this.taskService.allInBacklogForProject(projectId);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('/tasks/:taskId')
   async find(@Param('taskId') taskId: string): Promise<Task> {
     return this.taskService.oneForProject(taskId);
@@ -46,6 +52,16 @@ export class TaskController {
   @Get('/board/columns/:columnId/tasks')
   async findAllForColumn(@Param('columnId') columnId: string): Promise<Task[]> {
     return this.taskService.allForColumn(columnId);
+  }
+
+  @HttpCode(HttpStatus.CREATED)
+  @Post('/tasks')
+  async create(
+    @ReqUser() user: User,
+    @Param('projectId') projectId: string,
+    @Body() createDto: CreateTaskDto
+  ): Promise<Task> {
+    return this.taskService.create(user, projectId, createDto);
   }
 
   @HttpCode(HttpStatus.CREATED)

@@ -15,6 +15,7 @@ import { Sprint } from '../sprint/sprint.entity';
 import { BoardColumn } from '../board/board-column.entity';
 import { Subtask } from './subtask.entity';
 import { TaskComment } from './task-comment.entity';
+import { Project } from '../project/project.entity';
 
 @Entity()
 export class Task {
@@ -40,9 +41,15 @@ export class Task {
   @JoinColumn()
   public assignee: User;
 
+  @Column({ nullable: true })
+  public assigneeId: string;
+
   @OneToOne(() => TaskState)
   @JoinColumn()
-  public state: TaskState;
+  public taskState: TaskState;
+
+  @Column({ nullable: true })
+  public taskStateId: string;
 
   @ManyToOne(() => User)
   public creator: User;
@@ -60,11 +67,20 @@ export class Task {
   @ManyToOne(() => Sprint, (sprint) => sprint.tasks)
   public sprint: Sprint;
 
+  @Column({ nullable: true })
+  public sprintId: string;
+
   @ManyToOne(() => BoardColumn, (boardColumn) => boardColumn.tasks)
   public boardColumn: BoardColumn;
 
-  @Column()
+  @Column({ nullable: true })
   public boardColumnId: string;
+
+  @ManyToOne(() => Project, (project) => project.tasks)
+  public project: Project;
+
+  @Column()
+  public projectId: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;

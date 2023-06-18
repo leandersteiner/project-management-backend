@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { User } from '../user/user.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -55,4 +55,10 @@ export class TaskService {
   delete = async (taskId: string): Promise<void> => {
     await this.repository.delete(taskId);
   };
+
+  allInBacklogForProject(projectId: string) {
+    return this.repository.find({
+      where: { projectId, boardColumnId: IsNull() }
+    });
+  }
 }
