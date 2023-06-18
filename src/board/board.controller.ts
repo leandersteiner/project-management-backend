@@ -50,7 +50,7 @@ export class BoardController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('/columns/:columnId')
+  @Post('/columns')
   async createColumn(
     @Param('projectId') projectId: string,
     @Body() createDto: CreateBoardColumnDto

@@ -34,6 +34,7 @@ export class BoardColumnService {
     projectId: string,
     createDto: CreateBoardColumnDto
   ): Promise<BoardColumn> => {
+    console.log(createDto);
     const board = await this.boardRepository.findOneBy({
       project: { id: projectId }
     });
@@ -53,7 +54,7 @@ export class BoardColumnService {
     boardColumns.push(
       await this.repository.save({
         title: 'In progress',
-        state: taskStates.inProgress,
+        taskState: taskStates.inProgress,
         board: board,
         position: 1
       })
@@ -61,7 +62,7 @@ export class BoardColumnService {
     boardColumns.push(
       await this.repository.save({
         title: 'In review',
-        state: taskStates.inReview,
+        taskState: taskStates.inReview,
         board: board,
         position: 2
       })
@@ -69,7 +70,7 @@ export class BoardColumnService {
     boardColumns.push(
       await this.repository.save({
         title: 'Done',
-        state: taskStates.done,
+        taskState: taskStates.done,
         board: board,
         position: 3
       })

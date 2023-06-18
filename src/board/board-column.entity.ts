@@ -25,7 +25,10 @@ export class BoardColumn {
   @ManyToOne(() => TaskState, (taskState) => taskState.boardColumns, {
     eager: true
   })
-  public state: TaskState;
+  public taskState: TaskState;
+
+  @Column()
+  public taskStateId: string;
 
   @OneToMany(() => Task, (task) => task.boardColumn, { eager: true })
   public tasks: Task[];
