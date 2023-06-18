@@ -21,7 +21,7 @@ export class TaskState {
   @ManyToOne(() => Project, (project) => project.taskStates)
   public project: Project;
 
-  @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.state)
+  @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.taskState)
   public boardColumns: BoardColumn[];
 
   @CreateDateColumn({ type: 'timestamp' })
