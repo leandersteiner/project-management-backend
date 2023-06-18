@@ -54,6 +54,7 @@
 - [x] GET /projects/:projectId/tasks/states
 - [x] GET /projects/:projectId/board/columns/:columnId/tasks
 - [x] POST /projects/:projectId/tasks/states
+- [x] POST /projects/:projectId/board/tasks
 - [x] POST /projects/:projectId/board/columns/:columnId/tasks
 - [x] POST /projects/:projectId/board/columns/:columnId/tasks/:taskId/subtasks
 - [x] PATCH /projects/:projectId/tasks/:taskId
