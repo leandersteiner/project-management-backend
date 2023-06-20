@@ -70,7 +70,7 @@ export class OrganisationService {
   delete = async (user: User, orgId: string): Promise<void> => {
     const org = await this.findById(user, orgId);
     this.ensureAllowed(user, org, 'owner');
-    await this.repository.delete(org);
+    await this.repository.delete(org.id);
   };
 
   private ensureAllowed = (
