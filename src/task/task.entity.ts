@@ -44,7 +44,7 @@ export class Task {
   @Column({ nullable: true })
   public assigneeId: string;
 
-  @OneToOne(() => TaskState)
+  @ManyToOne(() => TaskState)
   @JoinColumn()
   public taskState: TaskState;
 

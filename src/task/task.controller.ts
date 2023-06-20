@@ -71,7 +71,13 @@ export class TaskController {
     @Param('columnId') columnId: string,
     @Body() createDto: CreateTaskDto
   ): Promise<Task> {
-    return this.taskService.createInColumn(user, columnId, createDto);
+    const task = await this.taskService.createInColumn(
+      user,
+      columnId,
+      createDto
+    );
+    console.log(task.subtasks);
+    return task;
   }
 
   @HttpCode(HttpStatus.CREATED)
