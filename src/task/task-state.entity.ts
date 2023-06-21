@@ -17,7 +17,9 @@ export class TaskState extends BaseEntity {
   @Column({ type: 'varchar', length: 120 })
   public name: string;
 
-  @ManyToOne(() => Project, (project) => project.taskStates)
+  @ManyToOne(() => Project, (project) => project.taskStates, {
+    onDelete: 'CASCADE'
+  })
   public project: Project;
 
   @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.taskState)

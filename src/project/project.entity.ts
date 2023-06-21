@@ -26,10 +26,13 @@ export class Project extends BaseEntity {
   @Column({ type: 'boolean' })
   public private: boolean;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User, { eager: true, onDelete: 'CASCADE' })
   public owner: User;
 
-  @ManyToOne(() => Team, (team) => team.projects, { eager: true })
+  @ManyToOne(() => Team, (team) => team.projects, {
+    eager: true,
+    onDelete: 'CASCADE'
+  })
   public team: Team;
 
   @ManyToMany(() => User, { eager: true })

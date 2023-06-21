@@ -59,7 +59,7 @@ export class TaskService {
   allInBacklogForProject(projectId: string) {
     return this.repository.find({
       where: {
-        boardColumn: { board: { project: { id: projectId } } },
+        projectId,
         boardColumnId: IsNull()
       }
     });

@@ -19,7 +19,10 @@ export class Organisation extends BaseEntity {
   @Column({ type: 'varchar', length: 120 })
   public name: string;
 
-  @ManyToOne(() => User, (user) => user.teams, { eager: true })
+  @ManyToOne(() => User, (user) => user.teams, {
+    eager: true,
+    onDelete: 'CASCADE'
+  })
   public owner: User;
 
   @OneToMany(() => Team, (team) => team.organisation)

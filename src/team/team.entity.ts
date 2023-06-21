@@ -24,7 +24,10 @@ export class Team extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   public private: boolean;
 
-  @ManyToOne(() => User, (user) => user.teams, { eager: true })
+  @ManyToOne(() => User, (user) => user.teams, {
+    eager: true,
+    onDelete: 'CASCADE'
+  })
   public owner: User;
 
   @ManyToMany(() => User, { eager: true })
@@ -35,7 +38,8 @@ export class Team extends BaseEntity {
   public projects: Project[];
 
   @ManyToOne(() => Organisation, (organisation) => organisation.teams, {
-    eager: true
+    eager: true,
+    onDelete: 'CASCADE'
   })
   public organisation: Organisation;
 }

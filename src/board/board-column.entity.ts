@@ -22,7 +22,8 @@ export class BoardColumn extends BaseEntity {
   public position: number;
 
   @ManyToOne(() => TaskState, (taskState) => taskState.boardColumns, {
-    eager: true
+    eager: true,
+    onDelete: 'CASCADE'
   })
   public taskState: TaskState;
 
@@ -32,6 +33,6 @@ export class BoardColumn extends BaseEntity {
   @OneToMany(() => Task, (task) => task.boardColumn, { eager: true })
   public tasks: Task[];
 
-  @ManyToOne(() => Board, (board) => board.columns)
+  @ManyToOne(() => Board, (board) => board.columns, { onDelete: 'CASCADE' })
   public board: Board;
 }

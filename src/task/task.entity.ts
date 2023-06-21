@@ -35,7 +35,7 @@ export class Task extends BaseEntity {
   @Column({ type: 'int' })
   public position: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   public assignee: User;
 
   @Column({ nullable: true })
@@ -48,7 +48,7 @@ export class Task extends BaseEntity {
   @Column({ nullable: true })
   public taskStateId: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   public creator: User;
 
   @OneToMany(() => Subtask, (subtask) => subtask.task, {
@@ -67,13 +67,15 @@ export class Task extends BaseEntity {
   @Column({ nullable: true })
   public sprintId: string;
 
-  @ManyToOne(() => BoardColumn, (boardColumn) => boardColumn.tasks)
+  @ManyToOne(() => BoardColumn, (boardColumn) => boardColumn.tasks, {
+    onDelete: 'CASCADE'
+  })
   public boardColumn: BoardColumn;
 
   @Column({ nullable: true })
   public boardColumnId: string;
 
-  @ManyToOne(() => Project, (project) => project.tasks)
+  @ManyToOne(() => Project, (project) => project.tasks, { onDelete: 'CASCADE' })
   public project: Project;
 
   @Column()

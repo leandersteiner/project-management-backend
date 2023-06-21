@@ -14,9 +14,9 @@ export class Subtask extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   public done: boolean;
 
-  @ManyToOne(() => Task, (task) => task.subtasks)
+  @ManyToOne(() => Task, (task) => task.subtasks, { onDelete: 'CASCADE' })
   public task: Task;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   public creator: User;
 }

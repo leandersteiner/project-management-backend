@@ -18,7 +18,7 @@ export class Board extends BaseEntity {
   @Column({ type: 'varchar', length: 120 })
   public title: string;
 
-  @OneToOne(() => Project)
+  @OneToOne(() => Project, { onDelete: 'CASCADE' })
   @JoinColumn()
   public project: Project;
 

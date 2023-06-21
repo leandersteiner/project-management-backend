@@ -11,9 +11,9 @@ export class TaskComment extends BaseEntity {
   @Column({ type: 'text' })
   public comment: string;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User, { eager: true, onDelete: 'CASCADE' })
   public creator: User;
 
-  @ManyToOne(() => Task, (task) => task.comments)
+  @ManyToOne(() => Task, (task) => task.comments, { onDelete: 'CASCADE' })
   public task: Task;
 }
