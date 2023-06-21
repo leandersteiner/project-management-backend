@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TaskComment } from './task-comment.entity';
@@ -10,7 +9,7 @@ import { UpdateTaskCommentDto } from './dto/update-task-comment.dto';
 @Injectable()
 export class TaskCommentService {
   constructor(
-    @InjectRepository(Task)
+    @InjectRepository(TaskComment)
     private repository: Repository<TaskComment>
   ) {}
 
@@ -27,14 +26,14 @@ export class TaskCommentService {
   };
 
   update = async (
-    subtaskId: string,
+    taskCommentId: string,
     updateDto: UpdateTaskCommentDto
   ): Promise<TaskComment> => {
-    await this.repository.update(subtaskId, updateDto);
-    return this.repository.findOneBy({ id: subtaskId });
+    await this.repository.update(taskCommentId, updateDto);
+    return this.repository.findOneBy({ id: taskCommentId });
   };
 
-  delete = async (subtaskId: string): Promise<void> => {
-    await this.repository.delete(subtaskId);
+  delete = async (taskCommentId: string): Promise<void> => {
+    await this.repository.delete(taskCommentId);
   };
 }

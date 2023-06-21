@@ -11,7 +11,7 @@ export class TaskComment extends BaseEntity {
   @Column({ type: 'text' })
   public comment: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   public creator: User;
 
   @ManyToOne(() => Task, (task) => task.comments)
