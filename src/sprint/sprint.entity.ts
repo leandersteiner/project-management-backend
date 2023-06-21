@@ -1,18 +1,17 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Task } from '../task/task.entity';
 import { Project } from '../project/project.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class Sprint {
+export class Sprint extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -31,10 +30,4 @@ export class Sprint {
 
   @OneToMany(() => Task, (task) => task.sprint)
   public tasks: Task[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

@@ -1,18 +1,17 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { TaskState } from '../task/task-state.entity';
 import { Task } from '../task/task.entity';
 import { Board } from './board.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class BoardColumn {
+export class BoardColumn extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -35,10 +34,4 @@ export class BoardColumn {
 
   @ManyToOne(() => Board, (board) => board.columns)
   public board: Board;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

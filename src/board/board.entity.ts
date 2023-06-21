@@ -1,18 +1,17 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { BoardColumn } from './board-column.entity';
 import { Project } from '../project/project.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class Board {
+export class Board extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -27,10 +26,4 @@ export class Board {
     eager: true
   })
   public columns: BoardColumn[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

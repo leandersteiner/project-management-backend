@@ -1,18 +1,12 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Team } from '../team/team.entity';
 import { Exclude } from 'class-transformer';
 import { Organisation } from '../organisation/organisation.entity';
 import { Project } from '../project/project.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -38,10 +32,4 @@ export class User {
 
   @OneToMany(() => Project, (project) => project.owner)
   public projects: Project[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

@@ -1,16 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Task } from './task.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class TaskComment {
+export class TaskComment extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -22,10 +16,4 @@ export class TaskComment {
 
   @ManyToOne(() => Task, (task) => task.comments)
   public task: Task;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

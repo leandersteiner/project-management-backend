@@ -1,13 +1,11 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Team } from '../team/team.entity';
 import { User } from '../user/user.entity';
@@ -15,9 +13,10 @@ import { Board } from '../board/board.entity';
 import { TaskState } from '../task/task-state.entity';
 import { Sprint } from '../sprint/sprint.entity';
 import { Task } from '../task/task.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class Project {
+export class Project extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -48,10 +47,4 @@ export class Project {
 
   @OneToMany(() => Sprint, (sprint) => sprint.project)
   public sprints: Sprint[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

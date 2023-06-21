@@ -1,12 +1,10 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { TaskState } from './task-state.entity';
@@ -15,9 +13,10 @@ import { BoardColumn } from '../board/board-column.entity';
 import { Subtask } from './subtask.entity';
 import { TaskComment } from './task-comment.entity';
 import { Project } from '../project/project.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class Task {
+export class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -79,10 +78,4 @@ export class Task {
 
   @Column()
   public projectId: string;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

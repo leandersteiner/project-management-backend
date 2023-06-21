@@ -1,17 +1,16 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Project } from '../project/project.entity';
 import { BoardColumn } from '../board/board-column.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class TaskState {
+export class TaskState extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -23,10 +22,4 @@ export class TaskState {
 
   @OneToMany(() => BoardColumn, (boardColumn) => boardColumn.taskState)
   public boardColumns: BoardColumn[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }

@@ -1,19 +1,18 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Team } from '../team/team.entity';
 import { User } from '../user/user.entity';
+import { BaseEntity } from 'src/common/typeorm/base.entity';
 
 @Entity()
-export class Organisation {
+export class Organisation extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -29,10 +28,4 @@ export class Organisation {
   @ManyToMany(() => User, { eager: true })
   @JoinTable()
   public members: User[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }
