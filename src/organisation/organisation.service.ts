@@ -46,10 +46,11 @@ export class OrganisationService {
 
   addUserToOrganisation = async (
     user: User,
+    orgId: string,
     addUserDto: AddUserToOrganisationDto
   ): Promise<Organisation> => {
     const organisation = await this.repository.findOneBy({
-      id: addUserDto.organisationId
+      id: orgId
     });
     this.ensureAllowed(user, organisation, 'owner');
     const memberIds = organisation.members.map((member) => member.id);

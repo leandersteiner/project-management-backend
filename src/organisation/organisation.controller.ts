@@ -53,10 +53,14 @@ export class OrganisationController {
   @Post('/:orgId')
   async addUserToOrganisation(
     @ReqUser() user: User,
-    @Param('orgId') id: string,
+    @Param('orgId') orgId: string,
     @Body() addUserDto: AddUserToOrganisationDto
   ): Promise<Organisation> {
-    return this.organizationService.addUserToOrganisation(user, addUserDto);
+    return this.organizationService.addUserToOrganisation(
+      user,
+      orgId,
+      addUserDto
+    );
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

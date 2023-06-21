@@ -4,8 +4,4 @@ export class AddUserToOrganisationDto {
   @IsString()
   @IsNotEmpty()
   public userId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  public organisationId: string;
 }
