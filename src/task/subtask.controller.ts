@@ -19,7 +19,7 @@ import { UpdateSubtaskDto } from './dto/update-subtask.dto';
 
 @UseGuards(AuthGuard)
 @Controller('tasks/:taskId/subtasks')
-export class TaskController {
+export class SubtaskController {
   constructor(private readonly subtaskService: SubtaskService) {}
 
   @HttpCode(HttpStatus.CREATED)

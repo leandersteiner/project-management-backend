@@ -18,7 +18,12 @@ export class SubtaskService {
     taskId: string,
     createDto: CreateSubtaskDto
   ): Promise<Subtask> => {
-    return this.repository.save({ done: false, ...createDto, creator: user });
+    return this.repository.save({
+      done: false,
+      ...createDto,
+      creator: user,
+      task: { id: taskId }
+    });
   };
 
   update = async (
