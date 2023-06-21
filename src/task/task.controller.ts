@@ -41,7 +41,7 @@ export class TaskController {
 
   @HttpCode(HttpStatus.OK)
   @Get('/backlog/tasks')
-  async findBacklog(@Param('/tasks') projectId: string): Promise<Task[]> {
+  async findBacklog(@Param('projectId') projectId: string): Promise<Task[]> {
     return this.taskService.allInBacklogForProject(projectId);
   }
 
