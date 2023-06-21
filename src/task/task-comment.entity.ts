@@ -2,9 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
@@ -16,14 +14,10 @@ export class TaskComment {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column({ type: 'varchar', length: 120 })
-  public title: string;
-
   @Column({ type: 'text' })
-  public content: string;
+  public comment: string;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User)
   public creator: User;
 
   @ManyToOne(() => Task, (task) => task.comments)
