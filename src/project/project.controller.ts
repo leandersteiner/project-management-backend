@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,7 +8,8 @@ import {
   HttpStatus,
   Param,
   Post,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { Project } from './project.entity';
@@ -17,6 +19,7 @@ import { ReqUser } from '../common/helper/user.decorator';
 import { User } from '../user/user.entity';
 import { AddUserToProjectDto } from './dto/add-user-to-project.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller()
 export class ProjectController {

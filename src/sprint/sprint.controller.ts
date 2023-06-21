@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,13 +8,15 @@ import {
   HttpStatus,
   Param,
   Patch,
-  Post
+  Post,
+  UseInterceptors
 } from '@nestjs/common';
 import { SprintService } from './sprint.service';
 import { Sprint } from './sprint.entity';
 import { CreateSprintDto } from './dto/create-sprint.dto';
 import { UpdateSprintDto } from './dto/update-sprint.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('projects/:projectId/sprints')
 export class SprintController {
   constructor(private readonly sprintService: SprintService) {}

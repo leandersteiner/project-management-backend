@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   HttpCode,
@@ -7,7 +8,8 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { ReqUser } from '../common/helper/user.decorator';
@@ -17,6 +19,7 @@ import { CreateSubtaskDto } from './dto/create-subtask.dto';
 import { Subtask } from './subtask.entity';
 import { UpdateSubtaskDto } from './dto/update-subtask.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('tasks/:taskId/subtasks')
 export class SubtaskController {

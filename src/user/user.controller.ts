@@ -17,19 +17,18 @@ import { AuthGuard } from '../auth/auth.guard';
 import { ReqUser } from '../common/helper/user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Get()
   async getAll(): Promise<any> {
     return this.userService.findAll();
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Get('/:userId')
   async getById(
@@ -39,7 +38,6 @@ export class UserController {
     return this.userService.findById(id);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Patch('/:userId')
   async update(
@@ -50,7 +48,6 @@ export class UserController {
     return this.userService.update(user, id, updateDto);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Delete('/:userId')
   async delete(
