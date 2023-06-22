@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf client
 cd ..
 rm -rf mauw-ss2023
 git clone https://github.com/leandersteiner/mauw-ss2023
