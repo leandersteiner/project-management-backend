@@ -132,13 +132,18 @@ export class ProjectService {
     userId: string,
     projectId: string
   ): Promise<Project> => {
-    const project = await this.repository.findOneBy({ id: projectId },);
+    const project = await this.repository.findOneBy({ id: projectId });
     this.ensureAllowed(user, project, 'owner');
     const memberIds = project.members.map((member) => member.id);
     if (memberIds.includes(user.id)) return project;
     const userToAdd = await this.userService.findById(userId);
     project.members.push(userToAdd);
     return this.repository.save(project);
+  };
+
+  getAllMember = async (projectId: string): Promise<User[]> => {
+    const project = await this.repository.findOneBy({ id: projectId });
+    return [...project.members, project.owner];
   };
 
   create = async (
@@ -170,13 +175,19 @@ export class ProjectService {
   ): void => {
     if (
       role === 'owner' &&
-      (user.id !== project.owner.id || project.team.owner.id !== user.id || project.team.organisation.owner.id !== user.id)
+      (user.id !== project.owner.id ||
+        project.team.owner.id !== user.id ||
+        project.team.organisation.owner.id !== user.id)
     ) {
       throw new UnauthorizedException();
     }
     if (role === 'member') {
       let result = true;
-      if (!project.members.includes(user) || !project.team.members.includes(user) || !project.team.organisation.members.includes(user)) {
+      if (
+        !project.members.includes(user) ||
+        !project.team.members.includes(user) ||
+        !project.team.organisation.members.includes(user)
+      ) {
         result = false;
       }
       if (project.owner.id === user.id) {

@@ -41,6 +41,15 @@ export class ProjectController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Get('/projects/:projectId/members')
+  async getAllMember(
+    @ReqUser() user: User,
+    @Param('projectId') projectId: string
+  ): Promise<User[]> {
+    return this.projectService.getAllMember(projectId);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('orgs/:orgId/projects')
   async getAllInOrg(
     @ReqUser() user: User,
