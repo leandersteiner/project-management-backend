@@ -46,8 +46,7 @@ export class TaskCommentController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':commentId')
-  async deleteSubtask(@Param('commentId') commentId: string): Promise<void> {
-    console.log(`deleting ${commentId}`);
+  async delete(@Param('commentId') commentId: string): Promise<void> {
     return this.taskCommentService.delete(commentId);
   }
 }

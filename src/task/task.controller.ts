@@ -79,7 +79,6 @@ export class TaskController {
       columnId,
       createDto
     );
-    console.log(task.subtasks);
     return task;
   }
 

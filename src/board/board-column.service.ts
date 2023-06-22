@@ -34,7 +34,6 @@ export class BoardColumnService {
     projectId: string,
     createDto: CreateBoardColumnDto
   ): Promise<BoardColumn> => {
-    console.log(createDto);
     const board = await this.boardRepository.findOneBy({
       project: { id: projectId }
     });
