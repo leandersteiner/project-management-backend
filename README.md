@@ -1,5 +1,7 @@
 # Project Management Backend
 
+![DB Schema](assets/db.svg)
+
 ## Installation
 
 ```bash
