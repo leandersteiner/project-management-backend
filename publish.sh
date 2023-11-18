@@ -1,2 +1,2 @@
 #!/bin/bash
-docker image push leandersteiner/mauwss2023
+docker image push leandersteiner/project-management

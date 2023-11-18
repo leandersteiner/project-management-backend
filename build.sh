@@ -1,12 +1,12 @@
 #!/bin/bash
 rm -rf client
 cd ..
-rm -rf mauw-ss2023
-git clone https://github.com/leandersteiner/mauw-ss2023
-cd mauw-ss2023 || exit
+rm -rf project-management-frontend
+git clone https://github.com/leandersteiner/project-management-frontend
+cd project-management-frontend || exit
 npm i
 npm run build
-mv dist ../mauw-ss2023-backend/client
-cd ../mauw-ss2023-backend || exit
+mv dist ../project-management-frontend/client
+cd ../project-management-backend || exit
 
-docker build --tag leandersteiner/mauwss2023 .
+docker build --tag leandersteiner/project-management .

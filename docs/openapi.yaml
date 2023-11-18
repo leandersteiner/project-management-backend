@@ -1,0 +1,1611 @@
+openapi: 3.0.0
+paths:
+  /users:
+    get:
+      operationId: UserController_getAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+  /users/{userId}:
+    get:
+      operationId: UserController_getById
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    patch:
+      operationId: UserController_update
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      operationId: UserController_delete
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  /teams:
+    get:
+      operationId: TeamController_getAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Team"
+  /orgs/{orgId}/teams:
+    get:
+      operationId: TeamController_getAllInOrg
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Team"
+    post:
+      operationId: TeamController_create
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTeamDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+  /orgs/{orgId}/teams/{teamId}:
+    get:
+      operationId: TeamController_getById
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+    post:
+      operationId: TeamController_addUserToTeam
+      parameters:
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUserToTeamDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+    delete:
+      operationId: TeamController_delete
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /orgs:
+    get:
+      operationId: OrganisationController_getAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Organisation"
+    post:
+      operationId: OrganisationController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrganisationDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+  /orgs/{orgId}:
+    get:
+      operationId: OrganisationController_getById
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+    post:
+      operationId: OrganisationController_addUserToOrganisation
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUserToOrganisationDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+    delete:
+      operationId: OrganisationController_delete
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects/{projectId}/tasks:
+    get:
+      operationId: TaskController_findAll
+      parameters:
+        - name: /tasks
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+    post:
+      operationId: TaskController_create
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+  /projects/{projectId}/backlog/tasks:
+    get:
+      operationId: TaskController_findBacklog
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+  /projects/{projectId}/tasks/{taskId}:
+    get:
+      operationId: TaskController_find
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+    patch:
+      operationId: TaskController_update
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTaskDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+    delete:
+      operationId: TaskController_delete
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects/{projectId}/board/columns/{columnId}/tasks:
+    get:
+      operationId: TaskController_findAllForColumn
+      parameters:
+        - name: columnId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+    post:
+      operationId: TaskController_createInColumn
+      parameters:
+        - name: columnId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+  /projects/{projectId}/board/columns/{columnId}/tasks/{taskId}/subtasks:
+    post:
+      operationId: TaskController_createSubtask
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSubtaskDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subtask"
+  /projects/{projectId}/tasks/{taskId}/subtasks/{subtaskId}:
+    patch:
+      operationId: TaskController_updateSubtask
+      parameters:
+        - name: subtaskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSubtaskDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subtask"
+    delete:
+      operationId: TaskController_deleteSubtask
+      parameters:
+        - name: subtaskId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects/{projectId}/tasks/states:
+    post:
+      operationId: TaskStateController_createTaskState
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskStateDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskState"
+  /tasks/{taskId}/subtasks:
+    post:
+      operationId: SubtaskController_create
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSubtaskDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subtask"
+  /tasks/{taskId}/subtasks/{subtaskId}:
+    patch:
+      operationId: SubtaskController_update
+      parameters:
+        - name: subtaskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSubtaskDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subtask"
+    delete:
+      operationId: SubtaskController_deleteSubtask
+      parameters:
+        - name: subtaskId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /tasks/{taskId}/comments:
+    post:
+      operationId: TaskCommentController_create
+      parameters:
+        - name: taskId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskCommentDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskComment"
+  /tasks/{taskId}/comments/{commentId}:
+    patch:
+      operationId: TaskCommentController_update
+      parameters:
+        - name: commentId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTaskCommentDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskComment"
+    delete:
+      operationId: TaskCommentController_delete
+      parameters:
+        - name: commentId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects/{projectId}/sprints:
+    get:
+      operationId: SprintController_findAll
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Sprint"
+    post:
+      operationId: SprintController_create
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSprintDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sprint"
+  /projects/{projectId}/sprints/{sprintId}:
+    get:
+      operationId: SprintController_findById
+      parameters:
+        - name: sprintId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sprint"
+    patch:
+      operationId: SprintController_update
+      parameters:
+        - name: sprintId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSprintDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sprint"
+    delete:
+      operationId: SprintController_delete
+      parameters:
+        - name: sprintId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects:
+    get:
+      operationId: ProjectController_getAllForUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /projects/{projectId}:
+    get:
+      operationId: ProjectController_getById
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /projects/{projectId}/members:
+    get:
+      operationId: ProjectController_getAllMember
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+  /orgs/{orgId}/projects:
+    get:
+      operationId: ProjectController_getAllInOrg
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /orgs/{orgId}/teams/{teamId}/projects:
+    get:
+      operationId: ProjectController_getAllInTeam
+      parameters:
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      operationId: ProjectController_create
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProjectDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /orgs/{orgId}/teams/{teamId}/projects/{projectId}:
+    post:
+      operationId: ProjectController_addUserToProject
+      parameters:
+        - name: orgId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: teamId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUserToProjectDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    delete:
+      operationId: ProjectController_delete
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+  /projects/{projectId}/board:
+    get:
+      operationId: BoardController_getBoard
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Board"
+  /projects/{projectId}/board/columns:
+    get:
+      operationId: BoardController_getAllColumns
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BoardColumn"
+    post:
+      operationId: BoardController_createColumn
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBoardColumnDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BoardColumn"
+  /projects/{projectId}/board/columns/{columnId}:
+    get:
+      operationId: BoardController_getColumn
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: columnId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BoardColumn"
+    patch:
+      operationId: BoardController_updatedColumn
+      parameters:
+        - name: columnId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBoardColumnDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BoardColumn"
+    delete:
+      operationId: BoardController_deleteColumn
+      parameters:
+        - name: columnId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  /login:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUserDto"
+      responses:
+        "200":
+          description: ""
+  /register:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserDto"
+      responses:
+        "201":
+          description: ""
+info:
+  title: Project Management
+  description: Description
+  version: 0.0.1
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    TaskState:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        project:
+          $ref: "#/components/schemas/Project"
+        boardColumns:
+          type: array
+          items:
+            $ref: "#/components/schemas/BoardColumn"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - project
+        - boardColumns
+        - createdAt
+        - updatedAt
+    Subtask:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        done:
+          type: boolean
+        task:
+          $ref: "#/components/schemas/Task"
+        creator:
+          $ref: "#/components/schemas/User"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - done
+        - task
+        - creator
+        - createdAt
+        - updatedAt
+    TaskComment:
+      type: object
+      properties:
+        id:
+          type: string
+        comment:
+          type: string
+        creator:
+          $ref: "#/components/schemas/User"
+        task:
+          $ref: "#/components/schemas/Task"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - comment
+        - creator
+        - task
+        - createdAt
+        - updatedAt
+    Sprint:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        start:
+          format: date-time
+          type: string
+        end:
+          format: date-time
+          type: string
+        project:
+          $ref: "#/components/schemas/Project"
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - start
+        - end
+        - project
+        - tasks
+        - createdAt
+        - updatedAt
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        done:
+          type: boolean
+        priority:
+          type: number
+        position:
+          type: number
+        assignee:
+          $ref: "#/components/schemas/User"
+        assigneeId:
+          type: string
+        taskState:
+          $ref: "#/components/schemas/TaskState"
+        taskStateId:
+          type: string
+        creator:
+          $ref: "#/components/schemas/User"
+        subtasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subtask"
+        comments:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskComment"
+        sprint:
+          $ref: "#/components/schemas/Sprint"
+        sprintId:
+          type: string
+        boardColumn:
+          $ref: "#/components/schemas/BoardColumn"
+        boardColumnId:
+          type: string
+        project:
+          $ref: "#/components/schemas/Project"
+        projectId:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - done
+        - priority
+        - position
+        - assignee
+        - assigneeId
+        - taskState
+        - taskStateId
+        - creator
+        - subtasks
+        - comments
+        - sprint
+        - sprintId
+        - boardColumn
+        - boardColumnId
+        - project
+        - projectId
+        - createdAt
+        - updatedAt
+    BoardColumn:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        position:
+          type: number
+        taskState:
+          $ref: "#/components/schemas/TaskState"
+        taskStateId:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        board:
+          $ref: "#/components/schemas/Board"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - title
+        - position
+        - taskState
+        - taskStateId
+        - tasks
+        - board
+        - createdAt
+        - updatedAt
+    Board:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        project:
+          $ref: "#/components/schemas/Project"
+        columns:
+          type: array
+          items:
+            $ref: "#/components/schemas/BoardColumn"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - title
+        - project
+        - columns
+        - createdAt
+        - updatedAt
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        private:
+          type: boolean
+        owner:
+          $ref: "#/components/schemas/User"
+        team:
+          $ref: "#/components/schemas/Team"
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        boards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Board"
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        taskStates:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskState"
+        sprints:
+          type: array
+          items:
+            $ref: "#/components/schemas/Sprint"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - private
+        - owner
+        - team
+        - members
+        - boards
+        - tasks
+        - taskStates
+        - sprints
+        - createdAt
+        - updatedAt
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        private:
+          type: boolean
+        owner:
+          $ref: "#/components/schemas/User"
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        projects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"
+        organisation:
+          $ref: "#/components/schemas/Organisation"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - private
+        - owner
+        - members
+        - projects
+        - organisation
+        - createdAt
+        - updatedAt
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        isDeleted:
+          type: boolean
+        organisations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Organisation"
+        teams:
+          type: array
+          items:
+            $ref: "#/components/schemas/Team"
+        projects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - username
+        - password
+        - email
+        - isDeleted
+        - organisations
+        - teams
+        - projects
+        - createdAt
+        - updatedAt
+    Organisation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        owner:
+          $ref: "#/components/schemas/User"
+        teams:
+          type: array
+          items:
+            $ref: "#/components/schemas/Team"
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - owner
+        - teams
+        - members
+        - createdAt
+        - updatedAt
+    UpdateUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    CreateTeamDto:
+      type: object
+      properties:
+        name:
+          type: string
+        private:
+          type: boolean
+      required:
+        - name
+        - private
+    AddUserToTeamDto:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+        - userId
+    CreateOrganisationDto:
+      type: object
+      properties:
+        name:
+          type: string
+        private:
+          type: boolean
+      required:
+        - name
+        - private
+    AddUserToOrganisationDto:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+        - userId
+    CreateTaskDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        done:
+          type: boolean
+        position:
+          type: number
+          minimum: 1
+        priority:
+          type: number
+          minimum: 1
+        taskStateId:
+          type: string
+        assigneeId:
+          type: string
+        projectId:
+          type: string
+        sprintId:
+          type: string
+      required:
+        - name
+        - description
+        - done
+        - position
+        - priority
+        - taskStateId
+        - assigneeId
+        - projectId
+        - sprintId
+    CreateSubtaskDto:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+      required:
+        - name
+        - done
+    UpdateTaskDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        done:
+          type: boolean
+        priority:
+          type: number
+          minimum: 1
+        position:
+          type: number
+          minimum: 1
+        assigneeId:
+          type: string
+        taskStateId:
+          type: string
+        boardColumnId:
+          type: string
+        sprintId:
+          type: string
+      required:
+        - name
+        - description
+        - done
+        - priority
+        - position
+        - assigneeId
+        - taskStateId
+        - boardColumnId
+        - sprintId
+    UpdateSubtaskDto:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+      required:
+        - name
+        - done
+    CreateTaskStateDto:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    CreateTaskCommentDto:
+      type: object
+      properties:
+        comment:
+          type: string
+      required:
+        - comment
+    UpdateTaskCommentDto:
+      type: object
+      properties:
+        comment:
+          type: string
+      required:
+        - comment
+    CreateSprintDto:
+      type: object
+      properties:
+        name:
+          type: string
+        start:
+          format: date-time
+          type: string
+        end:
+          format: date-time
+          type: string
+      required:
+        - name
+        - start
+        - end
+    UpdateSprintDto:
+      type: object
+      properties:
+        name:
+          type: string
+        start:
+          format: date-time
+          type: string
+        end:
+          format: date-time
+          type: string
+      required:
+        - name
+        - start
+        - end
+    CreateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+        private:
+          type: boolean
+      required:
+        - name
+        - private
+    AddUserToProjectDto:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+        - userId
+    CreateBoardColumnDto:
+      type: object
+      properties:
+        title:
+          type: string
+        taskStateId:
+          type: string
+        position:
+          type: number
+          minimum: 1
+      required:
+        - title
+        - taskStateId
+        - position
+    UpdateBoardColumnDto:
+      type: object
+      properties:
+        title:
+          type: string
+        taskStateId:
+          type: string
+        position:
+          type: number
+      required:
+        - title
+        - taskStateId
+        - position
+    LoginUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+    CreateUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - email
+        - password
