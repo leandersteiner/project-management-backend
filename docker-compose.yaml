@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: leandersteiner/mauwss2023
+    image: leandersteiner/project-management
     restart: unless-stopped
     ports:
       - '8081:8081'
